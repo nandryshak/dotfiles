@@ -32,10 +32,10 @@ endfunction
 function SetDirectory()
     if filereadable(glob('~\atWork.txt'))
         :cd O:\Pages
-        echo "Changed working directory to O:\Pages"
+        echo "Changed working directory to O:\\Pages"
     elseif filereadable('~\atHome.txt')
         :cd C:\Users\Nick\Desktop
-        echo "Changed directory to ~\Desktop"
+        echo "Changed directory to ~\\Desktop"
     elseif filereadable('~/vps.txt')
         :cd ~
     else
