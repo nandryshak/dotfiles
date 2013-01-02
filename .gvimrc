@@ -51,8 +51,10 @@ nnoremap <Leader>n :tabnew<CR>
 nnoremap <Leader>d :lcd %:p:h<CR>
 nnoremap <C-c> :call CopyAll()<CR>
 nnoremap <Leader>f :call FormatHtml()<CR>
+    " Buffer Maps
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
+nnoremap <C-Tab> :bdelete<CR>
     " Bubble single lines
 nmap <C-Up> ddkP
 nmap <C-Down> ddp
