@@ -17,7 +17,7 @@ set cursorline
 set ts=4 sts=4 sw=4 expandtab
 
 " Functions
-	" FormatHTML
+	" FormatHtml
 function FormatHtml ()
 	:%s/<[^>]*>/\r&\r/g
 	:g/^$/d
@@ -32,10 +32,8 @@ endfunction
 function SetDirectory()
     if filereadable(glob('~\atWork.txt'))
         :cd O:\Pages
-        echo "Changed working directory to O:\\Pages"
     elseif filereadable('~\atHome.txt')
         :cd C:\Users\Nick\Desktop
-        echo "Changed directory to ~\\Desktop"
     elseif filereadable('~/vps.txt')
         :cd ~
     else
@@ -52,6 +50,9 @@ nnoremap <Leader>h :set hlsearch!<CR>
 nnoremap <Leader>n :tabnew<CR>
 nnoremap <Leader>d :lcd %:p:h<CR>
 nnoremap <C-c> :call CopyAll()<CR>
+nnoremap <Leader>f :call FormatHtml()<CR>
+nnoremap <Tab> :bn<CR>
+nnoremap <S-Tab> :bp<CR>
     " Bubble single lines
 nmap <C-Up> ddkP
 nmap <C-Down> ddp
