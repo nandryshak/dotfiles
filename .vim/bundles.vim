@@ -2,6 +2,7 @@ set nocp
 filetype off
 
 set runtimepath+=~/.vim/bundle/vundle
+set runtimepath+=~/.vim/bundle/syntastic/syntax_checkers/html
 call vundle#rc()
 
 " Vundle self-management
@@ -10,6 +11,7 @@ Bundle 'gmarik/vundle'
 " github Bundles
 
 Bundle 'godlygeek/tabular'
+Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
 Bundle 'skammer/vim-css-color'

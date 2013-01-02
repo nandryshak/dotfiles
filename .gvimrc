@@ -13,11 +13,20 @@ let g:Powerline_symbols = 'fancy'
 set laststatus=2
 set encoding=utf-8
 set hlsearch!
+set cursorline
 set ts=4 sts=4 sw=4 expandtab
 
 " Functions
+	" FormatHTML
+function FormatHtml ()
+	:%s/<[^>]*>/\r&\r/g
+	:g/^$/d
+	:g/^\s\+$/d
+	:normal gg=G
+endfunction
+	" CopyAll
 function CopyAll()
-    :normal ggVG"+y
+	:normal gg"+yG
 endfunction
 	
 " Normal Mode Maps
@@ -49,11 +58,6 @@ nnoremap <Leader>e :Errors<CR>
 " NERDTree maps
 nnoremap <Leader>o :NERDTree<CR><CR>
 let NERDTreeQuitOnOpen = 1
-
-let g:miniBufExplMapWindowNavVim = 1 
-let g:miniBufExplMapWindowNavArrows = 1 
-let g:miniBufExplMapCTabSwitchBufs = 1 
-let g:miniBufExplModSelTarget = 1 
 
 set guifont=Consolas:h11:cANSI
 set scroll=16
