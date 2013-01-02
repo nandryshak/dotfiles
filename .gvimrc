@@ -1,8 +1,8 @@
 set shell=cmd.exe
 set nocp
 set noswapfile
-cd C:\Users\Nick\Desktop
 
+set backupcopy=yes
 set ruler
 set backspace=indent,eol,start
 set number
@@ -27,6 +27,20 @@ endfunction
 	" CopyAll
 function CopyAll()
 	:normal gg"+yG
+endfunction
+    " Set directory
+function SetDirectory()
+    if filereadable(glob('~\atWork.txt'))
+        :cd O:\Pages
+        echo "Changed working directory to O:\Pages"
+    elseif filereadable('~\atHome.txt')
+        :cd C:\Users\Nick\Desktop
+        echo "Changed directory to ~\Desktop"
+    elseif filereadable('~/vps.txt')
+        :cd ~
+    else
+        :cd
+    endif
 endfunction
 	
 " Normal Mode Maps
@@ -58,6 +72,9 @@ nnoremap <Leader>e :Errors<CR>
 " NERDTree maps
 nnoremap <Leader>o :NERDTree<CR><CR>
 let NERDTreeQuitOnOpen = 1
+
+" autocmds
+autocmd VimEnter * :call SetDirectory()
 
 set guifont=Consolas:h11:cANSI
 set scroll=16
