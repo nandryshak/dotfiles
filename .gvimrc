@@ -3,6 +3,7 @@ set nocp
 set noswapfile
 
 set backupcopy=yes
+set autowrite
 set ruler
 set backspace=indent,eol,start
 set number
@@ -17,7 +18,7 @@ set cursorline
 set ts=4 sts=4 sw=4 expandtab
 set foldmethod=syntax
 
-" Functions {{{
+" Functions {{{1
 	" FormatHtml
 function FormatHtml ()
 	:%s/<[^>]*>/\r&\r/g
@@ -41,7 +42,7 @@ function SetDirectory()
         :cd
     endif
 endfunction
-" }}}
+" }}}1
 	
 " Normal Mode Maps
 nnoremap <up> <nop>
@@ -85,6 +86,24 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " autocmds
 autocmd VimEnter * :call SetDirectory()
+
+" tpope's OpenURL function {{{
+function! OpenURL(url)
+  if has("win32")
+    exe "!start cmd /cstart /b ".a:url.""
+  elseif $DISPLAY !~ '^\w'
+    exe "silent !sensible-browser \"".a:url."\""
+  else
+    exe "silent !sensible-browser -T \"".a:url."\""
+  endif
+  redraw!
+endfunction
+command! -nargs=1 OpenURL :call OpenURL(<q-args>)
+" open URL under cursor in browser
+nnoremap gb :OpenURL <cfile><CR>
+nnoremap gG :OpenURL http://www.google.com/search?q=<cword><CR>
+nnoremap gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><CR>
+" }}}
 
 set guifont=Consolas:h11:cANSI
 set scroll=16
