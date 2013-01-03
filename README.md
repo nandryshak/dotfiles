@@ -1,3 +1,6 @@
 ========
 Dotfiles
 ========
+ctags
+folds
+windows

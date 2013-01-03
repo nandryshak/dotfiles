@@ -15,8 +15,9 @@ set encoding=utf-8
 set hlsearch!
 set cursorline
 set ts=4 sts=4 sw=4 expandtab
+set foldmethod=syntax
 
-" Functions
+" Functions {{{
 	" FormatHtml
 function FormatHtml ()
 	:%s/<[^>]*>/\r&\r/g
@@ -26,7 +27,7 @@ function FormatHtml ()
 endfunction
 	" CopyAll
 function CopyAll()
-	:normal gg"+yG
+	:exec "normal gg\"+yG\<c-o>\<c-o>"
 endfunction
     " Set directory
 function SetDirectory()
@@ -40,6 +41,7 @@ function SetDirectory()
         :cd
     endif
 endfunction
+" }}}
 	
 " Normal Mode Maps
 nnoremap <up> <nop>
@@ -75,6 +77,11 @@ nnoremap <Leader>e :Errors<CR>
 " NERDTree maps
 nnoremap <Leader>o :NERDTree<CR><CR>
 let NERDTreeQuitOnOpen = 1
+
+" Ultisnips maps
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " autocmds
 autocmd VimEnter * :call SetDirectory()

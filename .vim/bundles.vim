@@ -10,6 +10,7 @@ Bundle 'gmarik/vundle'
 
 " github Bundles
 
+Bundle 'SirVer/ultisnips'
 Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
