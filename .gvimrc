@@ -90,10 +90,11 @@ nnoremap <Leader>o :NERDTree<CR><CR>
 let NERDTreeQuitOnOpen = 1
 
 " Ultisnips maps and options
+set runtimepath^=~\.vim\CustomSnippets
+let g:UltiSnipsSnippetDirectories=["CustomSnippets", "Ultisnips"]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "CustomSnippets"]
 
 " Ctrlp Options
 let g:ctrlp_clear_cache_on_exit=0
