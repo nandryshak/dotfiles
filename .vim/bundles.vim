@@ -3,6 +3,7 @@ filetype off
 
 set runtimepath+=~/.vim/bundle/vundle
 set runtimepath+=~/.vim/bundle/syntastic/syntax_checkers/html
+set runtimepath+=~/.vim/CustomSnippets
 call vundle#rc()
 
 " Vundle self-management

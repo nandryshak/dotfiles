@@ -16,15 +16,25 @@ set encoding=utf-8
 set hlsearch!
 set cursorline
 set ts=4 sts=4 sw=4 expandtab
-set foldmethod=syntax
 
-" Functions {{{1
+" Folding
+set foldmethod=syntax
+set foldlevelstart=1
+
+let html_syntax_folding=1
+
+" Persistent Undo
+set undofile
+set undodir=~/.vim/undo
+set undolevels=1000     " numbers of particular undos to save
+set undoreload=10000    " number of undo lines to save
+
+" Functions
 	" FormatHtml
 function FormatHtml ()
-	:%s/<[^>]*>/\r&\r/g
-	:g/^$/d
-	:g/^\s\+$/d
-	:normal gg=G
+	":%s/<[^>]*>/\r&\r/g " splits tags onto separate lins
+    %s/^\s\+
+	exec "normal gg=G"
 endfunction
 	" CopyAll
 function CopyAll()
@@ -42,7 +52,7 @@ function SetDirectory()
         :cd
     endif
 endfunction
-" }}}1
+"
 	
 " Normal Mode Maps
 nnoremap <up> <nop>
@@ -79,15 +89,19 @@ nnoremap <Leader>e :Errors<CR>
 nnoremap <Leader>o :NERDTree<CR><CR>
 let NERDTreeQuitOnOpen = 1
 
-" Ultisnips maps
+" Ultisnips maps and options
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "CustomSnippets"]
+
+" Ctrlp Options
+let g:ctrlp_clear_cache_on_exit=0
 
 " autocmds
 autocmd VimEnter * :call SetDirectory()
 
-" tpope's OpenURL function {{{
+" tpope's OpenURL function
 function! OpenURL(url)
   if has("win32")
     exe "!start cmd /cstart /b ".a:url.""
@@ -99,11 +113,10 @@ function! OpenURL(url)
   redraw!
 endfunction
 command! -nargs=1 OpenURL :call OpenURL(<q-args>)
-" open URL under cursor in browser
+    " open URL under cursor in browser
 nnoremap gb :OpenURL <cfile><CR>
 nnoremap gG :OpenURL http://www.google.com/search?q=<cword><CR>
 nnoremap gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><CR>
-" }}}
 
 set guifont=Consolas:h11:cANSI
 set scroll=16
