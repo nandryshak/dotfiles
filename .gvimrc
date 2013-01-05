@@ -41,10 +41,8 @@ endfunction
 function SetDirectory()
     if filereadable(glob('~\atWork.txt'))
         :cd O:\Pages
-        :cd
     elseif filereadable(glob('~\atHome.txt'))
         :cd C:\Users\Nick\Desktop
-        :cd
     elseif filereadable('~/vps.txt')
         :cd ~
     else
