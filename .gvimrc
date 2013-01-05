@@ -10,7 +10,6 @@ set number
 syntax on
 set t_Co=256
 colorscheme molokai
-let g:Powerline_symbols = 'fancy'
 set laststatus=2
 set encoding=utf-8
 set hlsearch!
@@ -20,8 +19,6 @@ set ts=4 sts=4 sw=4 expandtab
 " Folding
 set foldmethod=syntax
 set foldlevelstart=1
-
-let html_syntax_folding=1
 
 " Persistent Undo
 set undofile
@@ -44,8 +41,10 @@ endfunction
 function SetDirectory()
     if filereadable(glob('~\atWork.txt'))
         :cd O:\Pages
-    elseif filereadable('~\atHome.txt')
+        :cd
+    elseif filereadable(glob('~\atHome.txt'))
         :cd C:\Users\Nick\Desktop
+        :cd
     elseif filereadable('~/vps.txt')
         :cd ~
     else
