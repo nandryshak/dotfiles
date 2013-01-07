@@ -35,7 +35,7 @@ function FormatHtml ()
 endfunction
 	" CopyAll
 function CopyAll()
-	:exec "normal gg\"+yG\<c-o>\<c-o>"
+	:normal gg"+yGzz
 endfunction
     " Set directory
 function SetDirectory()
