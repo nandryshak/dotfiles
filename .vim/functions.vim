@@ -6,6 +6,12 @@ function FormatHtml()
     %s/^\s\+//ge
     exec "normal gg=G"
 endfunction
+" Split tags, delete blank lines
+function SplitTags()
+    :%s/></>\r</g " splits tags onto separate lins
+    :g/^$/d " deletes empty lines
+    :g/^\s*$/d " deletes lines with only whitespace
+endfunction
 " Copies buffer to system clipboard
 function CopyAll()
     silent! :normal gg"+yGzz
