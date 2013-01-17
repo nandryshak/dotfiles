@@ -10,6 +10,8 @@ Bundle 'gmarik/vundle'
 
 " github Bundles
 
+Bundle 'Shougo/neocomplcache'
+Bundle 'vim-scripts/taglist.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'

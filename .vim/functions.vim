@@ -2,15 +2,20 @@
 
 " Formats HTML
 function FormatHtml()
-    ":%s/<[^>]*>/\r&\r/g " splits tags onto separate lins
     %s/^\s\+//ge
     exec "normal gg=G"
 endfunction
 " Split tags, delete blank lines
 function SplitTags()
     :%s/></>\r</g " splits tags onto separate lins
-    :g/^$/d " deletes empty lines
-    :g/^\s*$/d " deletes lines with only whitespace
+    silent! :g/^$/d " deletes empty lines
+    silent! :g/^\s*$/d " deletes lines with only whitespace
+endfunction
+" split CSS
+function SplitCSS()
+    :%s/; /&\r/ge
+    :%s/{ /&\r/ge
+    :%s/}/\r&/ge
 endfunction
 " Copies buffer to system clipboard
 function CopyAll()
@@ -40,4 +45,5 @@ function PressReleaseCleanup()
     silent! %s/# # #/<\/p><p>&<\/p>/g
     silent! %s/About LANshack.com/<p><strong>&<\/strong><\/p>/g
     silent! %s/Founded/<p>&/g
+    silent! %s/’/'/g
 endfunction
