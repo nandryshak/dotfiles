@@ -13,6 +13,7 @@ set cursorline
 set ts=4 sts=4 sw=4 expandtab
 set ignorecase
 set smartcase
+set scrolloff=7
 
 set backupdir=~\.vim\backups
 
@@ -20,7 +21,6 @@ set number
 syntax on
 set t_Co=256
 colorscheme molokai
-" set relativenumber
 
 " Persistent Undo
 set undofile
@@ -34,6 +34,8 @@ nnoremap <down> <nop>
 nnoremap <right> <nop>
 nnoremap <left> <nop>
 nnoremap Q <nop>
+nnoremap <C-k> -
+nnoremap <C-j> <C-m>
 nnoremap <C-c> :call CopyAll()<CR>
 nnoremap <Leader>h :set hlsearch!<CR>
 nnoremap <Leader>n :tabnew<CR>
@@ -49,7 +51,12 @@ nnoremap <Leader>sv :w<CR>:so %<CR>:bdel<CR>
     " Buffer Maps
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
-nnoremap <C-Tab> :bdelete<CR>
+nnoremap <silent> <C-Tab> :Bclose<CR>
+    " resize current buffer by +/- 5 
+nnoremap <S-left> :vertical resize -5<cr>
+nnoremap <S-down> :resize +5<cr>
+nnoremap <S-up> :resize -5<cr>
+nnoremap <S-right> :vertical resize +5<cr>
     " Bubble single lines
 nnoremap <C-Up> ddkP
 nnoremap <C-Down> ddp
@@ -57,8 +64,8 @@ nnoremap <C-Down> ddp
 nnoremap tt :TlistToggle<CR>
 
 " Insert Mode Maps
-inoremap <S-Space> <Esc>
 inoremap jk <Esc>
+inoremap <C-space> <Esc>
 
 " Visual Mode Maps
     " Bubble multiple lines
