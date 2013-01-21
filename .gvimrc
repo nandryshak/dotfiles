@@ -1,24 +1,26 @@
 set shell=cmd.exe
 set nocp
 set noswapfile
-
 set backupcopy=yes
 set autowrite
 set ruler
 set backspace=indent,eol,start
-set number
-syntax on
-set t_Co=256
-colorscheme molokai
+set smartindent
 set laststatus=2
 set encoding=utf-8
 set hlsearch!
 set cursorline
 set ts=4 sts=4 sw=4 expandtab
+set ignorecase
+set smartcase
 
-" Folding
-set foldmethod=syntax
-set foldlevelstart=1
+set backupdir=~\.vim\backups
+
+set number
+syntax on
+set t_Co=256
+colorscheme molokai
+" set relativenumber
 
 " Persistent Undo
 set undofile
@@ -26,65 +28,59 @@ set undodir=~/.vim/undo
 set undolevels=1000     " numbers of particular undos to save
 set undoreload=10000    " number of undo lines to save
 
-" Functions
-	" FormatHtml
-function FormatHtml ()
-	":%s/<[^>]*>/\r&\r/g " splits tags onto separate lins
-    %s/^\s\+
-	exec "normal gg=G"
-endfunction
-	" CopyAll
-function CopyAll()
-	:normal gg"+yGzz
-endfunction
-    " Set directory
-function SetDirectory()
-    if filereadable(glob('~\atWork.txt'))
-        :cd O:\Pages
-    elseif filereadable(glob('~\atHome.txt'))
-        :cd C:\Users\Nick\Desktop
-    elseif filereadable('~/vps.txt')
-        :cd ~
-    else
-        :cd
-    endif
-endfunction
-"
-	
 " Normal Mode Maps
 nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <right> <nop>
 nnoremap <left> <nop>
+nnoremap Q <nop>
+nnoremap <C-c> :call CopyAll()<CR>
 nnoremap <Leader>h :set hlsearch!<CR>
 nnoremap <Leader>n :tabnew<CR>
-nnoremap <Leader>d :lcd %:p:h<CR>
-nnoremap <C-c> :call CopyAll()<CR>
-nnoremap <Leader>f :call FormatHtml()<CR>
+nnoremap <Leader>cd :lcd %:p:h<CR>
+nnoremap <Leader>ff :call FormatHtml()<CR>
+nnoremap <Leader>fs :call SplitTags()<CR>
+nnoremap <Leader>fc :call SplitCSS()<CR>
+nnoremap <Leader>pr :call PressReleaseCleanup()<CR>
+nnoremap <Space> za
+    " Edit/save/source gvimrc
+nnoremap <Leader>ev :vsplit $MYGVIMRC<CR><C-w>L
+nnoremap <Leader>sv :w<CR>:so %<CR>:bdel<CR>
     " Buffer Maps
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
 nnoremap <C-Tab> :bdelete<CR>
     " Bubble single lines
-nmap <C-Up> ddkP
-nmap <C-Down> ddp
+nnoremap <C-Up> ddkP
+nnoremap <C-Down> ddp
+    " Tag list
+nnoremap tt :TlistToggle<CR>
 
 " Insert Mode Maps
 inoremap <S-Space> <Esc>
+inoremap jk <Esc>
 
 " Visual Mode Maps
     " Bubble multiple lines
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
+" Command abbrevs
+ca W w
+
+" Plugin Maps and Options
 " Syntastic Maps
 nnoremap <Leader>s :SyntasticToggleMode<CR>
 nnoremap <Leader>c :SyntasticCheck<CR>
 nnoremap <Leader>e :Errors<CR>
 
-" NERDTree maps
+" NERDTree maps and options
 nnoremap <Leader>o :NERDTree<CR><CR>
 let NERDTreeQuitOnOpen = 1
+
+" NERDCommenter options
+let g:NERDUsePlaceHolders = 0
+let g:NERDSpaceDelims = 1
 
 " Ultisnips maps and options
 set runtimepath^=~\.vim\CustomSnippets
@@ -95,27 +91,32 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Ctrlp Options
 let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_custom_ignore = '*.dat'
+let g:ctrlp_open_new_file = 'r'
 
 " autocmds
+autocmd BufRead *.ashx set ft=cs
 autocmd VimEnter * :call SetDirectory()
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
 " tpope's OpenURL function
 function! OpenURL(url)
-  if has("win32")
-    exe "!start cmd /cstart /b ".a:url.""
-  elseif $DISPLAY !~ '^\w'
-    exe "silent !sensible-browser \"".a:url."\""
-  else
-    exe "silent !sensible-browser -T \"".a:url."\""
-  endif
-  redraw!
+    if has("win32")
+        exe "!start cmd /cstart /b ".a:url.""
+    elseif $DISPLAY !~ '^\w'
+        exe "silent !sensible-browser \"".a:url."\""
+    else
+        exe "silent !sensible-browser -T \"".a:url."\""
+    endif
+    redraw!
 endfunction
 command! -nargs=1 OpenURL :call OpenURL(<q-args>)
-    " open URL under cursor in browser
+" open URL under cursor in browser maps
 nnoremap gb :OpenURL <cfile><CR>
 nnoremap gG :OpenURL http://www.google.com/search?q=<cword><CR>
 nnoremap gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><CR>
 
+" gvim options
 set guifont=Consolas:h11:cANSI
 set scroll=16
 set window=33
