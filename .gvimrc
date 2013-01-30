@@ -41,7 +41,7 @@ nnoremap <left> <nop>
 nnoremap <C-h> ^
 nnoremap <C-k> -
 nnoremap <C-j> <C-m>
-nnoremap <C-l> $
+" nnoremap <C-l> $
 nnoremap <F5> <C-l>
 
 nnoremap Q <nop>
@@ -57,10 +57,13 @@ nnoremap <Leader>fs :call SplitTags()<CR>
 nnoremap <Leader>fc :call SplitCSS()<CR>
 nnoremap <Leader>pr :call PressReleaseCleanup()<CR>
 nnoremap <Leader>vs :vs<CR>:bnext<CR>:vert resize 100<CR>
+nnoremap <c-v> "+P
+nnoremap K i<cr><esc>
+nnoremap gB :silent !chrome %:p<CR>
 
     " Compile/run cs files
-nnoremap <Leader>\c :!mcs %
-nnoremap <Leader>\r :!cd %:p:h %% mono<space><C-r>%<BS><BS>exe<CR>
+nnoremap <Leader>\c :!mcs %<CR>
+nnoremap <Leader>\r :!cd %:p:h && mono<space><C-r>%<BS><BS>exe<CR>
 
     " Edit/save/source gvimrc
 nnoremap <Leader>ev :vsplit $MYGVIMRC<CR><C-w>L
@@ -74,6 +77,8 @@ nnoremap <S-left> :vertical resize -5<cr>
 nnoremap <S-down> :resize +5<cr>
 nnoremap <S-up> :resize -5<cr>
 nnoremap <S-right> :vertical resize +5<cr>
+nnoremap <C-S-right> :vertical resize<CR>
+nnoremap <C-S-left> <c-w>l:vertical resize 40<CR><c-w>h
     " Bubble single lines
 nnoremap <C-Up> ddkP
 nnoremap <C-Down> ddp
@@ -99,10 +104,12 @@ ca W w
 
 " Plugin Maps and Options
 " Syntastic Maps
-" silent !SyntasticToggleMode
-" nnoremap <Leader>s :SyntasticToggleMode<CR>
-" nnoremap <Leader>c :SyntasticCheck<CR>
-" nnoremap <Leader>e :Errors<CR>
+let g:syntastic_mode_map = { "mode": "passive",
+                           \ "active_filetypes": [],
+                           \ "passive_filetypes": [] }
+nnoremap <Leader>s :SyntasticToggleMode<CR>
+nnoremap <Leader>c :SyntasticCheck<CR>
+nnoremap <Leader>e :Errors<CR>
 
 " NERDTree maps and options
 nnoremap <Leader>o :NERDTree<CR><CR>
@@ -172,7 +179,6 @@ set guioptions-=L
 "
 " margin-top: 200px; -> daN -> margin-top: px;
 "              ^                          ^
-" TODO: Handle floats.
 
 onoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
 xnoremap N :<c-u>call <SID>NumberTextObject(0)<cr>
@@ -197,3 +203,19 @@ function! s:NumberTextObject(whole)
     endif
 endfunction
 " }}}
+
+" Motion for "next object". For example, "din(" would go to the next "()" pair
+" and delete its contents.
+" Credit to AndrewRadev gist.github.com/1171559
+ 
+onoremap an :<c-u>call <SID>NextTextObject('a')<cr>
+xnoremap an :<c-u>call <SID>NextTextObject('a')<cr>
+onoremap in :<c-u>call <SID>NextTextObject('i')<cr>
+xnoremap in :<c-u>call <SID>NextTextObject('i')<cr>
+ 
+function! s:NextTextObject(motion)
+  echo
+  let c = nr2char(getchar())
+  exe "normal! f".c."v".a:motion.c
+endfunction
+
