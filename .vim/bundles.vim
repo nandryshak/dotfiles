@@ -10,11 +10,11 @@ Bundle 'gmarik/vundle'
 
 " github Bundles
 
-Bundle 'vim-scripts/taglist.vim'
+" Bundle 'vim-scripts/taglist.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'
-" Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdtree'
 Bundle 'skammer/vim-css-color'
 Bundle 'gregsexton/MatchTag'

@@ -51,7 +51,7 @@ nnoremap <Space> za
 nnoremap <C-c> :call CopyAll()<CR>
 nnoremap <Leader>h :set hlsearch!<CR>
 nnoremap <Leader>n :tabnew<CR>
-nnoremap <Leader>cd :lcd %:p:h<CR>
+nnoremap <Leader>cd :lcd %:p:h<CR>:cd<CR>
 nnoremap <Leader>ff :call FormatHtml()<CR>
 nnoremap <Leader>fs :call SplitTags()<CR>
 nnoremap <Leader>fc :call SplitCSS()<CR>
@@ -59,8 +59,8 @@ nnoremap <Leader>pr :call PressReleaseCleanup()<CR>
 nnoremap <Leader>vs :vs<CR>:bnext<CR>:vert resize 100<CR>
 
     " Compile/run cs files
-nnoremap <Leader>\c :!mcs %
-nnoremap <Leader>\r :!cd %:p:h %% mono<space><C-r>%<BS><BS>exe<CR>
+nnoremap <Leader>\c :!mcs %<CR>
+nnoremap <Leader>\r :!cd %:p:h && mono<space><C-r>%<BS><BS>exe<CR>
 
     " Edit/save/source gvimrc
 nnoremap <Leader>ev :vsplit $MYGVIMRC<CR><C-w>L
