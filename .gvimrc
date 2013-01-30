@@ -51,7 +51,7 @@ nnoremap <Space> za
 nnoremap <C-c> :call CopyAll()<CR>
 nnoremap <Leader>h :set hlsearch!<CR>
 nnoremap <Leader>n :tabnew<CR>
-nnoremap <Leader>cd :lcd %:p:h<CR>
+nnoremap <Leader>cd :lcd %:p:h<CR>:cd<CR>
 nnoremap <Leader>ff :call FormatHtml()<CR>
 nnoremap <Leader>fs :call SplitTags()<CR>
 nnoremap <Leader>fc :call SplitCSS()<CR>
