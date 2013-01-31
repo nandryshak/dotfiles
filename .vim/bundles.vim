@@ -8,9 +8,12 @@ call vundle#rc()
 " Vundle self-management
 Bundle 'gmarik/vundle'
 
+" DOWNLOAD CONQUE RIGHT NOW IF YOU DON'T HAVE IT
 " github Bundles
 
-" Bundle 'vim-scripts/taglist.vim'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'dahu/SearchParty'
+Bundle 'vim-scripts/taglist.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'

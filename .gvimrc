@@ -51,7 +51,7 @@ nnoremap <Space> za
 nnoremap <C-c> :call CopyAll()<CR>
 nnoremap <Leader>h :set hlsearch!<CR>
 nnoremap <Leader>n :tabnew<CR>
-nnoremap <Leader>cd :lcd %:p:h<CR>:cd<CR>
+nnoremap <Leader>cd :lcd %:p:h<CR>
 nnoremap <Leader>ff :call FormatHtml()<CR>
 nnoremap <Leader>fs :call SplitTags()<CR>
 nnoremap <Leader>fc :call SplitCSS()<CR>
@@ -60,6 +60,7 @@ nnoremap <Leader>vs :vs<CR>:bnext<CR>:vert resize 100<CR>
 nnoremap <c-v> "+P
 nnoremap K i<cr><esc>
 nnoremap gB :silent !chrome %:p<CR>
+nnoremap <c-s> :ConqueTermSplit cmd.exe<CR><esc>:resize 10<CR>i
 
     " Compile/run cs files
 nnoremap <Leader>\c :!mcs %<CR>
@@ -79,6 +80,8 @@ nnoremap <S-up> :resize -5<cr>
 nnoremap <S-right> :vertical resize +5<cr>
 nnoremap <C-S-right> :vertical resize<CR>
 nnoremap <C-S-left> <c-w>l:vertical resize 40<CR><c-w>h
+nnoremap <C-S-up> :resize 30<CR>
+nnoremap <C-S-down> :resize<CR>
     " Bubble single lines
 nnoremap <C-Up> ddkP
 nnoremap <C-Down> ddp
@@ -131,11 +134,17 @@ let g:ctrlp_clear_cache_on_exit=0
 let g:ctrlp_custom_ignore = '*.dat'
 let g:ctrlp_open_new_file = 'r'
 
+" Conque Options
+let g:ConqueTerm_CWInsert = 1
+let g:ConqueTerm_InsertOnEnter = 1
+
 " autocmds
 autocmd BufRead *.ashx set ft=cs
 autocmd VimEnter * :call SetDirectory()
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd VimResized * :wincmd =
+autocmd FileType rb set ts=2 sts=2 sw=2 expandtab
+autocmd FileType rb let b:delimitMate_matchpairs = "(:),[:],{:},<:>,|:|"
 
 augroup cline
     au!
