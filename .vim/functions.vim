@@ -26,7 +26,7 @@ function SetDirectory()
     if filereadable(glob('O:\NickWorkHours\atWork.txt'))
         :cd O:\Pages
     elseif filereadable(glob('~\NoDrive.txt'))
-        :cd C:\IMAGES-DONTDELETE\Pages
+        :cd C:\Users\IPS_LANshack\Documents\Pages
     elseif filereadable('~\atHome.txt')
         :cd C:\Users\Nick\Desktop
     elseif filereadable('~/vps.txt')
