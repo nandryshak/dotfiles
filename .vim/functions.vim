@@ -1,5 +1,17 @@
 " Functions file
 
+" Increments a visual column of numbers. Make the whole columns one number.
+" This number will be the starting point for the incrementation.
+function! Incr()
+    let a = line('.') - line("'<")
+    let c = virtcol("'<")
+    if a > 0
+        execute 'normal! '.c.'|'.a."\<C-a>"
+    endif
+    normal `<
+endfunction
+vnoremap <C-a> :call Incr()<CR>
+
 " Formats HTML
 function FormatHtml()
     %s/^\s\+//ge
