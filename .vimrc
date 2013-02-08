@@ -1,5 +1,5 @@
-so ~/.vim/bundles.vim
-so ~/.vim/functions.vim
+silent! so ~/.vim/bundles.vim
+silent! so ~/.vim/functions.vim
 
 set shell=cmd.exe
 set nocp
@@ -28,7 +28,11 @@ set backupdir=~\.vim\backups
 set number
 syntax on
 set t_Co=256
-colorscheme molokai
+if has("gui_running")
+    colorscheme molokai
+elseif
+    colorscheme desert
+endif
 
 " Persistent Undo
 set undofile
@@ -51,7 +55,6 @@ nnoremap <F5> <C-l>
 nnoremap Q <nop>
 nnoremap x "_x
 nnoremap <Leader>i :set list!<CR>
-nnoremap <Space> za
 nnoremap <C-c> :call CopyAll()<CR>
 nnoremap <Leader>h :set hlsearch!<CR>
 nnoremap <Leader>n :tabnew<CR>
@@ -66,17 +69,24 @@ nnoremap K i<cr><esc>
 nnoremap <cr> A<cr><esc>
 nnoremap gB :silent !chrome %:p<CR>
 nnoremap <c-s> :ConqueTermSplit cmd.exe<CR><esc>:resize 10<CR>i
+nnoremap <Space> :
+noremap <S-Space> :Tab/
+nnoremap <C-space> :vim //g % \| cw<left><left><left><left><left><left><left><left><left>
+nnoremap <Leader>u :UndotreeToggle<CR>
+nnoremap <Leader>l :ls<CR>:b<space>
+nnoremap a; A;<esc>
 
     " Compile/run cs files
 nnoremap <Leader>\c :!mcs %<CR>
 nnoremap <Leader>\r :!cd %:p:h && mono<space><C-r>%<BS><BS>exe<CR>
 
-    " Edit/save/source gvimrc
-nnoremap <Leader>ev :vsplit $MYGVIMRC<CR><C-w>L
+    " Edit/save/source vimrc
+nnoremap <Leader>ev :vsplit $MYVIMRC<CR><C-w>L
 nnoremap <Leader>sv :w<CR>:so %<CR>:bdel<CR>
     " Buffer Maps
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
+nnoremap <BS> <C-^>
 nnoremap <silent> <C-Tab> :silent! Bclose<CR>
     " resize current buffer by +/- 5 
 nnoremap <S-left> :vertical resize -5<cr>
@@ -111,6 +121,10 @@ cnoremap <C-e> <end>
 ca W w
 
 " Plugin Maps and Options
+" DelimitMate
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
+
 " Syntastic Maps
 let g:syntastic_mode_map = { "mode": "passive",
                            \ "active_filetypes": [],
