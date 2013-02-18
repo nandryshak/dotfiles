@@ -11,8 +11,6 @@ Bundle 'gmarik/vundle'
 " DOWNLOAD CONQUE RIGHT NOW IF YOU DON'T HAVE IT
 " github Bundles
 
-Bundle 'Yggdroot/indentLine'
-Bundle 'Lokaltog/powerline'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'dahu/SearchParty'
 Bundle 'vim-scripts/taglist.vim'

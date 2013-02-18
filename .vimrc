@@ -1,6 +1,8 @@
 silent! so ~/.vim/bundles.vim
 silent! so ~/.vim/functions.vim
 
+set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.gif,*.DAT,*.DAT*,*.psd
+
 set shell=cmd.exe
 set nocp
 set noswapfile
