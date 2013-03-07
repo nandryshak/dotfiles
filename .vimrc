@@ -3,12 +3,16 @@ silent! so ~/.vim/functions.vim
 
 set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.gif,*.DAT,*.DAT*,*.psd
 
+<<<<<<< HEAD
 if has("win32")
     set shell=cmd.exe
 else
     set shell=/bin/bash
 endif
 
+=======
+set shell=cmd.exe
+>>>>>>> 9fb003c7bac3bf40d3d7154e7368b2caed291830
 set nocp
 set noswapfile
 set backupcopy=yes
