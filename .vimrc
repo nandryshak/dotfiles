@@ -1,7 +1,14 @@
 silent! so ~/.vim/bundles.vim
 silent! so ~/.vim/functions.vim
 
-set shell=cmd.exe
+set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.gif,*.DAT,*.DAT*,*.psd
+
+if has("win32")
+    set shell=cmd.exe
+else
+    set shell=/bin/bash
+endif
+
 set nocp
 set noswapfile
 set backupcopy=yes
@@ -23,22 +30,18 @@ set incsearch
 set splitbelow
 set splitright
 
-set backupdir=~\.vim\backups
+set backupdir=~/.vim/backups
 
 set number
 syntax on
 set t_Co=256
-if has("gui_running")
-    colorscheme molokai
-elseif
-    colorscheme desert
-endif
+colorscheme molokai
 
 " Persistent Undo
 set undofile
 set undodir=~/.vim/undo
-set undolevels=1000     " numbers of particular undos to save
-set undoreload=10000    " number of undo lines to save
+set undolevels=10000     " numbers of particular undos to save
+set undoreload=100000    " number of undo lines to save
 
 " Normal Mode Maps
 nnoremap <up> <nop>
@@ -46,49 +49,80 @@ nnoremap <down> <nop>
 nnoremap <right> <nop>
 nnoremap <left> <nop>
 
+" Move around lines
 nnoremap <C-h> ^
 nnoremap <C-k> -
 nnoremap <C-j> <C-m>
-" nnoremap <C-l> $
-nnoremap <F5> <C-l>
 
+" Stops me from entering ex mode on accident
 nnoremap Q <nop>
+
+" Prevents character deletes from going into a register (_ is a blackhole)
 nnoremap x "_x
+
+" Show whitespace
 nnoremap <Leader>i :set list!<CR>
+
+" Function maps
+    " Pastes system clipboard
+nnoremap <c-v> "+P
 nnoremap <C-c> :call CopyAll()<CR>
-nnoremap <Leader>h :set hlsearch!<CR>
-nnoremap <Leader>n :tabnew<CR>
-nnoremap <Leader>cd :lcd %:p:h<CR>
 nnoremap <Leader>ff :call FormatHtml()<CR>
 nnoremap <Leader>fs :call SplitTags()<CR>
 nnoremap <Leader>fc :call SplitCSS()<CR>
 nnoremap <Leader>pr :call PressReleaseCleanup()<CR>
 nnoremap <Leader>vs :vs<CR>:bnext<CR>:vert resize 100<CR>
-nnoremap <c-v> "+P
 nnoremap K i<cr><esc>
+
+" Adds a new line below current
 nnoremap <cr> A<cr><esc>
+
+" Open buffer in chrome
 nnoremap gB :silent !chrome %:p<CR>
+
+" Open Conque
 nnoremap <c-s> :ConqueTermSplit cmd.exe<CR><esc>:resize 10<CR>i
+
+" Not very useful, shift-; is too ingrained
 nnoremap <Space> :
+
+" Start Tabular.vim
 noremap <S-Space> :Tab/
+
+" Start a vimgrep and open results window
 nnoremap <C-space> :vim //g % \| cw<left><left><left><left><left><left><left><left><left>
+
 nnoremap <Leader>u :UndotreeToggle<CR>
+
+" Show open buffers
 nnoremap <Leader>l :ls<CR>:b<space>
+
+" Add a semicolon to EOL
 nnoremap a; A;<esc>
 
-    " Compile/run cs files
+" Calls Tidy
+nnoremap <leader>x :silent %!tidy -q -i -config C:\Users\IPS_lanshack\Documents\Tidy\config.txt --show-errors 0<CR>
+nnoremap <leader>zx :silent %!tidy -q -i -config C:\Users\IPS_lanshack\Documents\Tidy\config-no-body-only.txt --show-errors 0<CR>
+
+" Compile/run cs files
 nnoremap <Leader>\c :!mcs %<CR>
 nnoremap <Leader>\r :!cd %:p:h && mono<space><C-r>%<BS><BS>exe<CR>
 
-    " Edit/save/source vimrc
+" Togggle set wrap
+nnoremap <Leader>w :set wrap!<CR>
+
+" Isolate a line
+nnoremap <leader><space><space> O<c-o>j<c-o>o<c-o>k<esc>
+
+" Edit/save/source vimrc
 nnoremap <Leader>ev :vsplit $MYVIMRC<CR><C-w>L
 nnoremap <Leader>sv :w<CR>:so %<CR>:bdel<CR>
-    " Buffer Maps
+" Buffer Maps
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
 nnoremap <BS> <C-^>
 nnoremap <silent> <C-Tab> :silent! Bclose<CR>
-    " resize current buffer by +/- 5 
+" resize current buffer by +/- 5 
 nnoremap <S-left> :vertical resize -5<cr>
 nnoremap <S-down> :resize +5<cr>
 nnoremap <S-up> :resize -5<cr>
@@ -97,7 +131,7 @@ nnoremap <C-S-right> :vertical resize<CR>
 nnoremap <C-S-left> <c-w>l:vertical resize 40<CR><c-w>h
 nnoremap <C-S-up> :resize 30<CR>
 nnoremap <C-S-down> :resize<CR>
-    " Bubble single lines
+" Bubble single lines
 nnoremap <C-Up> ddkP
 nnoremap <C-Down> ddp
     " Tag list
@@ -110,8 +144,8 @@ inoremap <C-space> <Esc>
 
 " Visual Mode Maps
     " Bubble multiple lines
-vmap <C-Up> xkP`[V`]
-vmap <C-Down> xp`[V`]
+vnoremap <C-Up> xkP`[V`]
+vnoremap <C-Down> xp`[V`]
 
 " Command Mode maps
 cnoremap <C-a> <home>
@@ -143,7 +177,7 @@ let g:NERDSpaceDelims = 1
 
 " Ultisnips maps and options
 set runtimepath^=~\.vim\CustomSnippets
-let g:UltiSnipsSnippetDirectories=["CustomSnippets", "Ultisnips"]
+let g:UltiSnipsSnippetDirectories=["CustomSnippets", "bundle/ultisnips/UltiSnips"]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -159,8 +193,11 @@ let g:ConqueTerm_CWInsert = 1
 let g:ConqueTerm_InsertOnEnter = 1
 
 " autocmds
+autocmd BufRead *.ascx set ft=html
 autocmd BufRead *.ashx set ft=cs
-autocmd VimEnter * :call SetDirectory()
+if has("win32")
+    autocmd VimEnter * :call SetDirectory()
+endif
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd VimResized * :wincmd =
 autocmd FileType rb set ts=2 sts=2 sw=2 expandtab
