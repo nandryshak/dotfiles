@@ -3,14 +3,12 @@ silent! so ~/.vim/functions.vim
 
 set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.gif,*.DAT,*.DAT*,*.psd
 
-<<<<<<< HEAD
 if has("win32")
     set shell=cmd.exe
 else
     set shell=/bin/bash
 endif
 
-=======
 set shell=cmd.exe
 >>>>>>> 9fb003c7bac3bf40d3d7154e7368b2caed291830
 set nocp
@@ -157,6 +155,9 @@ cnoremap <C-e> <end>
 
 " Command abbrevs
 ca W w
+ca Q q
+ca Wq wq
+ca Wqa wqa
 
 " Plugin Maps and Options
 " DelimitMate
@@ -191,10 +192,6 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = '1r'
 let g:ctrlp_clear_cache_on_exit=0
 let g:ctrlp_custom_ignore = '*.dat'
-
-" Conque Options
-let g:ConqueTerm_CWInsert = 1
-let g:ConqueTerm_InsertOnEnter = 1
 
 " autocmds
 autocmd BufRead *.ascx set ft=html
