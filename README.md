@@ -1,8 +1,4 @@
-========
 Dotfiles
 ========
-ctags
-folds
-windows
 
-this is a test
+Fugitive Test

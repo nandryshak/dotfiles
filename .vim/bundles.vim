@@ -10,6 +10,7 @@ Bundle 'gmarik/vundle'
 
 " github Bundles
 
+Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'dahu/SearchParty'

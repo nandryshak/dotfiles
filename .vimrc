@@ -16,7 +16,6 @@ set backupcopy=yes
 set autowrite
 set ruler
 set backspace=indent,eol,start
-set smartindent
 set cindent
 set laststatus=2
 set encoding=utf-8
@@ -115,6 +114,10 @@ nnoremap <Leader>w :set wrap!<CR>
 " Isolate a line
 nnoremap <leader><space><space> O<c-o>j<c-o>o<c-o>k<esc>
 
+" BundleClean/Install
+nnoremap <leader>bc :BundleClean<CR>
+nnoremap <leader>bi :BundleInstall<CR>
+
 " Edit/save/source vimrc
 nnoremap <Leader>ev :vsplit $MYVIMRC<CR><C-w>L
 nnoremap <Leader>sv :w<CR>:so %<CR>:bdel<CR>
@@ -135,8 +138,6 @@ nnoremap <C-S-down> :resize<CR>
 " Bubble single lines
 nnoremap <C-Up> ddkP
 nnoremap <C-Down> ddp
-    " Tag list
-nnoremap tt :TlistToggle<CR>
 
 " Insert Mode Maps
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
@@ -180,8 +181,6 @@ let g:NERDUsePlaceHolders = 0
 let g:NERDSpaceDelims = 1
 
 " Ultisnips maps and options
-set runtimepath^=~\.vim\CustomSnippets
-let g:UltiSnipsSnippetDirectories=["CustomSnippets", "bundle/ultisnips/UltiSnips"]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
