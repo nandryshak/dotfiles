@@ -1,7 +1,7 @@
 silent! so ~/.vim/bundles.vim
 silent! so ~/.vim/functions.vim
 
-set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.gif,*.DAT,*.DAT*,*.psd
+set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.jpeg,*.gif,*.DAT,*.DAT*,*.psd,*.lnk
 
 if has("win32")
     set shell=cmd.exe
@@ -119,13 +119,15 @@ nnoremap <leader>bc :BundleClean<CR>
 nnoremap <leader>bi :BundleInstall<CR>
 
 " Edit/save/source vimrc
-nnoremap <Leader>ev :vsplit $MYVIMRC<CR><C-w>L
+nnoremap <Leader>ev :vsplit ~/Documents/GitHub/dotfiles/.vimrc<CR><C-w>L
 nnoremap <Leader>sv :w<CR>:so %<CR>:bdel<CR>
+
 " Buffer Maps
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
 nnoremap <BS> <C-^>
 nnoremap <silent> <C-Tab> :silent! Bclose<CR>
+
 " resize current buffer by +/- 5 
 nnoremap <S-left> :vertical resize -5<cr>
 nnoremap <S-down> :resize +5<cr>
@@ -135,9 +137,11 @@ nnoremap <C-S-right> :vertical resize<CR>
 nnoremap <C-S-left> <c-w>l:vertical resize 40<CR><c-w>h
 nnoremap <C-S-up> :resize 30<CR>
 nnoremap <C-S-down> :resize<CR>
+
 " Bubble single lines
 nnoremap <C-Up> ddkP
 nnoremap <C-Down> ddp
+
 
 " Insert Mode Maps
 inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
@@ -190,6 +194,9 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = '1r'
 let g:ctrlp_clear_cache_on_exit=0
 let g:ctrlp_custom_ignore = '*.dat'
+
+" SuperTab Options
+let g:SuperTabDefaultCompletionType = "context"
 
 " autocmds
 autocmd BufRead *.ascx set ft=html
