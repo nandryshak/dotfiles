@@ -9,7 +9,7 @@ Bundle 'gmarik/vundle'
 
 " github Bundles
 
-Bundle 'mhinz/vim-signify'
+Bundle 'nandryshak/vim-signify'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
