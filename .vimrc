@@ -1,3 +1,17 @@
+" Vimdiff
+" do    get changes
+" dp    put changes 
+" ]c    next change
+" [c    prev change
+"
+" Spell check
+" :set spell
+" ]s    next error
+" [s    prev error
+" zg    add word
+" zug   undo add word
+" z=    view suggestions
+
 silent! so ~/.vim/bundles.vim
 silent! so ~/.vim/functions.vim
 
