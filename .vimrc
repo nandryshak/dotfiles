@@ -203,6 +203,13 @@ nnoremap <c-p> :CtrlP C:\Users\IPS_lanshack\Documents\Pages<CR>
 " SuperTab Options
 let g:SuperTabDefaultCompletionType = "context"
 
+" Fugitive commands
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gp :Git push<CR>
+nnoremap <leader>gb :Gbrowse<CR>
+
 " autocmds
 autocmd BufRead *.ascx set ft=html
 autocmd BufRead *.ashx set ft=cs
