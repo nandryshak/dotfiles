@@ -1,7 +1,7 @@
 silent! so ~/.vim/bundles.vim
 silent! so ~/.vim/functions.vim
 
-set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.jpeg,*.gif,*.DAT,*.DAT*,*.psd,*.lnk
+set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.jpeg,*.gif,*.DAT,*.DAT*,*.psd,*.lnk,*.mp4
 
 if has("win32")
     set shell=cmd.exe
@@ -115,11 +115,15 @@ nnoremap <Leader>w :set wrap!<CR>
 nnoremap <leader><space><space> O<c-o>j<c-o>o<c-o>k<esc>
 
 " BundleClean/Install
-nnoremap <leader>bc :BundleClean<CR>
-nnoremap <leader>bi :BundleInstall<CR>
+nnoremap <leader>bc :w <bar> so % <bar> BundleClean<CR>
+nnoremap <leader>bi :w <bar> so % <bar> BundleInstall<CR>
 
 " Edit/save/source vimrc
-nnoremap <Leader>ev :vsplit ~/Documents/GitHub/dotfiles/.vimrc<CR><C-w>L
+if has("win32")
+    nnoremap <Leader>ev :vsplit ~/Documents/GitHub/dotfiles/.vimrc<CR><C-w>L
+else
+    nnoremap <Leader>ev :vsplit ~/dotfiles/.vimrc<CR><C-w>L
+endif
 nnoremap <Leader>sv :w<CR>:so %<CR>:bdel<CR>
 
 " Buffer Maps
@@ -194,6 +198,7 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = '1r'
 let g:ctrlp_clear_cache_on_exit=0
 let g:ctrlp_custom_ignore = '*.dat'
+nnoremap <c-p> :CtrlP C:\Users\IPS_lanshack\Documents\Pages<CR>
 
 " SuperTab Options
 let g:SuperTabDefaultCompletionType = "context"
