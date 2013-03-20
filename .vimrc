@@ -85,7 +85,7 @@ nnoremap <Leader>ff :call FormatHtml()<CR>
 nnoremap <Leader>fs :call SplitTags()<CR>
 nnoremap <Leader>fc :call SplitCSS()<CR>
 nnoremap <Leader>pr :call PressReleaseCleanup()<CR>
-nnoremap <Leader>vs :vs<CR>:bnext<CR>:vert resize 100<CR>
+nnoremap <Leader>vs :vs<CR>:bnext<CR><c-w><c-w>:vert resize 100<CR>
 nnoremap K i<cr><esc>
 
 " Adds a new line below current
