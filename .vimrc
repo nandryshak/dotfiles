@@ -23,7 +23,6 @@ else
     set shell=/bin/bash
 endif
 
-set shell=cmd.exe
 set nocp
 set noswapfile
 set backupcopy=yes
@@ -43,6 +42,9 @@ set wildmenu
 set incsearch
 set splitbelow
 set splitright
+set sc
+
+let $PAGER=''
 
 set backupdir=~/.vim/backups
 
