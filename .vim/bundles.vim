@@ -9,7 +9,7 @@ Bundle 'gmarik/vundle'
 
 " github Bundles
 
-Bundle 'nandryshak/vim-signify'
+Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
@@ -18,7 +18,6 @@ Bundle 'dahu/SearchParty'
 Bundle 'SirVer/ultisnips'
 Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdtree'
 Bundle 'ervandew/supertab'
 Bundle 'tpope/vim-surround'
 Bundle 'Lokaltog/vim-easymotion'
