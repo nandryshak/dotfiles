@@ -92,7 +92,7 @@ nnoremap K i<cr><esc>
 nnoremap <cr> A<cr><esc>
 
 " Open buffer in chrome
-nnoremap gB :silent !chrome %:p<CR>
+nnoremap gB :silent !chrome "%:p"<CR>
 
 " Open Conque
 nnoremap <c-s> :ConqueTermSplit cmd.exe<CR><esc>:resize 10<CR>i
@@ -159,6 +159,17 @@ nnoremap <C-S-down> :resize<CR>
 " Bubble single lines
 nnoremap <C-Up> ddkP
 nnoremap <C-Down> ddp
+
+" write and source current buffer
+nnoremap <leader>ws :w <bar> so %<cr>
+
+" Surround.vim maps
+" wrap <ul> tag around visual selection
+nnoremap <leader>rul :normal ysii<ul>vit><lt><lt><cr>
+" wrap <li> tag on each line in visual selection
+vnoremap <leader>rli :normal yss<li><cr>
+" wrap div class
+vnoremap <leader>rd S<lt>div class=""<left>
 
 
 " Insert Mode Maps
