@@ -9,6 +9,7 @@ Bundle 'gmarik/vundle'
 
 " github Bundles
 
+Bundle 'tpope/vim-unimpaired'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'tpope/vim-fugitive'
