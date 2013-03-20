@@ -18,4 +18,4 @@ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 vim +BundleInstall +qall
 
 # Clones snippets
-git clone https://github.com/nandryshak/UltiSnips.git ~/.vim/bundle/ultisnips
+git clone https://github.com/nandryshak/UltiSnips.git ~/.vim/bundle/ultisnips/UltiSnips
