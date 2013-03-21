@@ -77,7 +77,7 @@ nnoremap Q <nop>
 nnoremap x "_x
 
 " Show whitespace
-nnoremap <Leader>i :set list!<CR>
+" nnoremap <Leader>i :set list!<CR>
 
 " Function maps
     " Pastes system clipboard
@@ -87,7 +87,11 @@ nnoremap <Leader>ff :call FormatHtml()<CR>
 nnoremap <Leader>fs :call SplitTags()<CR>
 nnoremap <Leader>fc :call SplitCSS()<CR>
 nnoremap <Leader>pr :call PressReleaseCleanup()<CR>
+
+" Splits an html and css file nicely
 nnoremap <Leader>vs :vs<CR>:bnext<CR><c-w><c-w>:vert resize 100<CR>
+
+" Splits a line at cursor
 nnoremap K i<cr><esc>
 
 " Adds a new line below current
@@ -96,19 +100,16 @@ nnoremap <cr> A<cr><esc>
 " Open buffer in chrome
 nnoremap gB :silent !chrome "%:p"<CR>
 
-" Open Conque
-nnoremap <c-s> :ConqueTermSplit cmd.exe<CR><esc>:resize 10<CR>i
-
-" Not very useful, shift-; is too ingrained
+" Not very useful, : is too ingrained
 nnoremap <Space> :
 
 " Start Tabular.vim
+" BROKENINTERM: Just detects a space
 noremap <S-Space> :Tab/
 
 " Start a vimgrep and open results window
+" BROKENINTERM
 nnoremap <C-space> :vim //g % \| cw<left><left><left><left><left><left><left><left><left>
-
-nnoremap <Leader>u :UndotreeToggle<CR>
 
 " Show open buffers
 nnoremap <Leader>l :ls<CR>:b<space>
@@ -117,8 +118,9 @@ nnoremap <Leader>l :ls<CR>:b<space>
 nnoremap a; A;<esc>
 
 " Calls Tidy
-nnoremap <leader>x :silent %!tidy -q -i -config C:\Users\IPS_lanshack\Documents\Tidy\config.txt --show-errors 0<CR>
-nnoremap <leader>zx :silent %!tidy -q -i -config C:\Users\IPS_lanshack\Documents\Tidy\config-no-body-only.txt --show-errors 0<CR>
+" MAKEUNIVERSAL
+nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
+nnoremap <leader>zx :silent %!tidy --show-body-only no --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
 
 " Compile/run cs files
 nnoremap <Leader>\c :!mcs %<CR>
@@ -146,9 +148,11 @@ nnoremap <Leader>sv :w<CR>:so %<CR>:bdel<CR>
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
 nnoremap <BS> <C-^>
+" BROKENINTERM
 nnoremap <silent> <C-Tab> :silent! Bclose<CR>
 
 " resize current buffer by +/- 5 
+" These all BROKENINTERM. A darn shame.
 nnoremap <S-left> :vertical resize -5<cr>
 nnoremap <S-down> :resize +5<cr>
 nnoremap <S-up> :resize -5<cr>
@@ -173,14 +177,16 @@ vnoremap <leader>rli :normal yss<li><cr>
 " wrap div class
 vnoremap <leader>rd S<lt>div class=""<left>
 
+" Quick search and replace
+nnoremap ? :%s/<c-r>///g<left><left>
+
 
 " Insert Mode Maps
-inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 inoremap jk <Esc>
 inoremap <C-space> <Esc>
 
 " Visual Mode Maps
-    " Bubble multiple lines
+" Bubble multiple lines
 vnoremap <C-Up> xkP`[V`]
 vnoremap <C-Down> xp`[V`]
 
@@ -193,23 +199,12 @@ ca W w
 ca Q q
 ca Wq wq
 ca Wqa wqa
+ca %% <c-r>=expand('%:p:h')<CR>
 
 " Plugin Maps and Options
 " DelimitMate
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
-
-" Syntastic Maps
-let g:syntastic_mode_map = { "mode": "passive",
-                           \ "active_filetypes": [],
-                           \ "passive_filetypes": [] }
-nnoremap <Leader>s :SyntasticToggleMode<CR>
-nnoremap <Leader>c :SyntasticCheck<CR>
-nnoremap <Leader>e :Errors<CR>
-
-" NERDTree maps and options
-nnoremap <Leader>o :NERDTree<CR><CR>
-let NERDTreeQuitOnOpen = 1
 
 " NERDCommenter options
 let g:NERDUsePlaceHolders = 0
@@ -247,7 +242,6 @@ autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,
 autocmd VimResized * :wincmd =
 autocmd FileType rb set ts=2 sts=2 sw=2 expandtab
 autocmd FileType rb let b:delimitMate_matchpairs = "(:),[:],{:},<:>,|:|"
-
 augroup cline
     au!
     au WinLeave,InsertEnter * set nocursorline
@@ -305,19 +299,3 @@ function! s:NumberTextObject(whole)
     endif
 endfunction
 " }}}
-
-" Motion for "next object". For example, "din(" would go to the next "()" pair
-" and delete its contents.
-" Credit to AndrewRadev gist.github.com/1171559
- 
-onoremap an :<c-u>call <SID>NextTextObject('a')<cr>
-xnoremap an :<c-u>call <SID>NextTextObject('a')<cr>
-onoremap in :<c-u>call <SID>NextTextObject('i')<cr>
-xnoremap in :<c-u>call <SID>NextTextObject('i')<cr>
- 
-function! s:NextTextObject(motion)
-  echo
-  let c = nr2char(getchar())
-  exe "normal! f".c."v".a:motion.c
-endfunction
-
