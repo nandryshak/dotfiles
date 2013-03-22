@@ -15,7 +15,7 @@
 silent! so ~/.vim/bundles.vim
 silent! so ~/.vim/functions.vim
 
-set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.jpeg,*.gif,*.DAT,*.DAT*,*.psd,*.lnk,*.mp4
+set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.jpeg,*.gif,*.DAT,*.DAT*,*.psd,*.lnk,*.mp4,*.pyc
 
 if has("win32")
     set shell=cmd.exe
@@ -180,6 +180,11 @@ vnoremap <leader>rd S<lt>div class=""<left>
 " Quick search and replace
 nnoremap ? :%s/<c-r>///g<left><left>
 
+" Open Syntastic errors
+nnoremap <leader>er :Errors<CR>
+
+nnoremap <leader>cd :lcd %:p:h<CR>:cd<CR>
+
 
 " Insert Mode Maps
 inoremap jk <Esc>
@@ -199,7 +204,6 @@ ca W w
 ca Q q
 ca Wq wq
 ca Wqa wqa
-ca %% <c-r>=expand('%:p:h')<CR>
 
 " Plugin Maps and Options
 " DelimitMate
@@ -218,9 +222,9 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " Ctrlp Options
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = '1r'
-let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = '*.dat'
-nnoremap <c-p> :CtrlP C:\Users\IPS_lanshack\Documents\Pages<CR>
+nnoremap <c-[> :CtrlP C:\Users\IPS_lanshack\Documents\Pages<CR>
 
 " SuperTab Options
 let g:SuperTabDefaultCompletionType = "context"
@@ -232,6 +236,9 @@ nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gp :Git push<CR>
 nnoremap <leader>gb :Gbrowse<CR>
 
+" Syntastic 
+let g:syntastic_python_checkers=['pyflakes']
+
 " autocmds
 autocmd BufRead *.ascx set ft=html
 autocmd BufRead *.ashx set ft=cs
@@ -239,6 +246,7 @@ if has("win32")
     autocmd VimEnter * :call SetDirectory()
 endif
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd BufRead *.py set nocindent
 autocmd VimResized * :wincmd =
 autocmd FileType rb set ts=2 sts=2 sw=2 expandtab
 autocmd FileType rb let b:delimitMate_matchpairs = "(:),[:],{:},<:>,|:|"

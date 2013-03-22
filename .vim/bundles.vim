@@ -9,6 +9,7 @@ Bundle 'gmarik/vundle'
 
 " github Bundles
 
+Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'davidhalter/jedi-vim'
@@ -21,7 +22,6 @@ Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'
 Bundle 'ervandew/supertab'
 Bundle 'tpope/vim-surround'
-Bundle 'Lokaltog/vim-easymotion'
 Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'kshenoy/vim-signature'
@@ -34,5 +34,6 @@ Bundle 'skammer/vim-css-color'
 Bundle 'tomasr/molokai'
 
 " vim script Bundles
+Bundle 'django.vim'
 
 filetype plugin indent on
