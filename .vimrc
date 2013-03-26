@@ -23,35 +23,47 @@ else
     set shell=/bin/bash
 endif
 
-set nocp
-set noswapfile
-set backupcopy=yes
-set autowrite
-set ruler
-set backspace=indent,eol,start
+" Can't live without these
+set number
+syntax on
+
+set t_Co=256
+
+" Sets colorscheme. Always use molokai unless you're in a terminal on Windows
+" (no 256 colors on Windows term)
+if has("win32") && !has("gui_running")
+    colorscheme desert
+else
+    colorscheme molokai
+endif
+
+let mapleader = "\<space>"
+
+set nocp               " enable vim features
+set noswapfile         " no swap files
+set autowrite          " autowrites on :next, etc.
+set ruler              " show rows,columns in status line
+set backspace=2        " make backspace actually work
+set scrolloff=7        " keep the cursor 7 lines below/above the top/bottom of the window
+set wildmenu           " visual responses to <tab> in the command line
+set cursorline         " highlight the line the cursor is on
+set ts=4 sts=4 sw=4 et " sane tab settings
+set laststatus=2       " always have a status line
+set sc                 " show commands in the status line as you type them
 set cindent
-set laststatus=2
 set encoding=utf-8
-set hlsearch!
-set cursorline
-set ts=4 sts=4 sw=4 expandtab
+set backupcopy=yes
 set ignorecase
 set smartcase
-set scrolloff=7
-set wildmenu
 set incsearch
 set splitbelow
 set splitright
-set sc
+set to tm=3000 ttm=100
 
+" For use with `man`
 let $PAGER=''
 
 set backupdir=~/.vim/backups
-
-set number
-syntax on
-set t_Co=256
-colorscheme molokai
 
 " Persistent Undo
 set undofile
@@ -94,14 +106,12 @@ nnoremap <Leader>vs :vs<CR>:bnext<CR><c-w><c-w>:vert resize 100<CR>
 " Splits a line at cursor
 nnoremap K i<cr><esc>
 
-" Adds a new line below current
-nnoremap <cr> A<cr><esc>
+" Adds a new line below/above current
+nnoremap <cr> o<esc>
+nnoremap <s-cr> O<esc>
 
 " Open buffer in chrome
 nnoremap gB :silent !chrome "%:p"<CR>
-
-" Not very useful, : is too ingrained
-nnoremap <Space> :
 
 " Start Tabular.vim
 " BROKENINTERM: Just detects a space
@@ -118,7 +128,6 @@ nnoremap <Leader>l :ls<CR>:b<space>
 nnoremap a; A;<esc>
 
 " Calls Tidy
-" MAKEUNIVERSAL
 nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
 nnoremap <leader>zx :silent %!tidy --show-body-only no --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
 
@@ -148,6 +157,7 @@ nnoremap <Leader>sv :w<CR>:so %<CR>:bdel<CR>
 nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
 nnoremap <BS> <C-^>
+
 " BROKENINTERM
 nnoremap <silent> <C-Tab> :silent! Bclose<CR>
 
@@ -165,35 +175,40 @@ nnoremap <C-S-down> :resize<CR>
 " Bubble single lines
 nnoremap <C-Up> ddkP
 nnoremap <C-Down> ddp
+" Bubble multiple lines
+vnoremap <C-Up> xkP`[V`]
+vnoremap <C-Down> xp`[V`]
 
 " write and source current buffer
-nnoremap <leader>ws :w <bar> so %<cr>
-
-" Surround.vim maps
-" wrap <ul> tag around visual selection
-nnoremap <leader>rul :normal ysii<ul>vit><lt><lt><cr>
-" wrap <li> tag on each line in visual selection
-vnoremap <leader>rli :normal yss<li><cr>
-" wrap div class
-vnoremap <leader>rd S<lt>div class=""<left>
+nnoremap <leader>ss :w <bar> so %<cr>
 
 " Quick search and replace
 nnoremap ? :%s/<c-r>///g<left><left>
+vnoremap ? :s/<c-r>///g<left><left>
 
 " Open Syntastic errors
 nnoremap <leader>er :Errors<CR>
 
+" Changes windows to the directory of the current buffer
 nnoremap <leader>cd :lcd %:p:h<CR>:cd<CR>
 
+" Add a class/id to the first HTML tag on the line
+nnoremap <leader>ac :s/<\zs\w\+\s/&class="" /<CR>ci"
+nnoremap <leader>ai :s/<\zs\w\+\s/&id="" /<CR>ci"
+
+" Open Scratch buffer
+nnoremap <leader>tmp :Scratch<CR>
+
+" Diff THIS
+nnoremap <leader>dt :difft<CR>
+nnoremap <leader>ds :vert diffsplit<CR>
+nnoremap <leader>do :diffo!<CR>
 
 " Insert Mode Maps
 inoremap jk <Esc>
 inoremap <C-space> <Esc>
 
 " Visual Mode Maps
-" Bubble multiple lines
-vnoremap <C-Up> xkP`[V`]
-vnoremap <C-Down> xp`[V`]
 
 " Command Mode maps
 cnoremap <C-a> <home>
@@ -204,8 +219,14 @@ ca W w
 ca Q q
 ca Wq wq
 ca Wqa wqa
+ca q1 q!
 
 " Plugin Maps and Options
+
+" YouCompleteMe
+let g:ycm_key_list_select_completion = ['<Enter>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<S-Enter>', '<Up>']
+
 " DelimitMate
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
@@ -235,6 +256,14 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gp :Git push<CR>
 nnoremap <leader>gb :Gbrowse<CR>
+
+" Surround.vim maps
+" wrap <ul> tag around visual selection
+nnoremap <leader>rul :normal ysii<ul>vit><lt><lt><cr>
+" wrap <li> tag on each line in visual selection
+vnoremap <leader>rli :normal yss<li><cr>
+" wrap div class
+vnoremap <leader>rd S<lt>div class=""<left>
 
 " Syntastic 
 let g:syntastic_python_checkers=['pyflakes']
