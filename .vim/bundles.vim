@@ -10,7 +10,6 @@ Bundle 'gmarik/vundle'
 " github Bundles
 
 Bundle 'mhinz/vim-signify'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'

@@ -1,3 +1,6 @@
+" Cheat Sheet 
+" How am I supposed to remember every vim command
+"
 " Vimdiff
 " do    get changes
 " dp    put changes 
@@ -15,8 +18,9 @@
 silent! so ~/.vim/bundles.vim
 silent! so ~/.vim/functions.vim
 
-set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.jpeg,*.gif,*.DAT,*.DAT*,*.psd,*.lnk,*.mp4,*.pyc
+set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.jpeg,*.gif,*.DAT,*.DAT*,*.psd,*.lnk,*.mp4,*.pyc,Backup\**
 
+" Sets shell based on environment
 if has("win32")
     set shell=cmd.exe
 else
@@ -27,10 +31,9 @@ endif
 set number
 syntax on
 
-set t_Co=256
-
 " Sets colorscheme. Always use molokai unless you're in a terminal on Windows
 " (no 256 colors on Windows term)
+set t_Co=256
 if has("win32") && !has("gui_running")
     colorscheme desert
 else
@@ -59,6 +62,7 @@ set incsearch
 set splitbelow
 set splitright
 set to tm=3000 ttm=100
+set hlsearch
 
 " For use with `man`
 let $PAGER=''
@@ -120,9 +124,6 @@ noremap <S-Space> :Tab/
 " Start a vimgrep and open results window
 " BROKENINTERM
 nnoremap <C-space> :vim //g % \| cw<left><left><left><left><left><left><left><left><left>
-
-" Show open buffers
-nnoremap <Leader>l :ls<CR>:b<space>
 
 " Add a semicolon to EOL
 nnoremap a; A;<esc>
@@ -203,6 +204,9 @@ nnoremap <leader>tmp :Scratch<CR>
 nnoremap <leader>dt :difft<CR>
 nnoremap <leader>ds :vert diffsplit<CR>
 nnoremap <leader>do :diffo!<CR>
+
+" Run Last :Tabularize
+nnoremap <leader>lt :Tab<up><CR>
 
 " Insert Mode Maps
 inoremap jk <Esc>
