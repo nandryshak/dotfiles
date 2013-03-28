@@ -14,10 +14,8 @@
 " zg    add word
 " zug   undo add word
 " z=    view suggestions
-
 silent! so ~/.vim/bundles.vim
 silent! so ~/.vim/functions.vim
-
 set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.jpeg,*.gif,*.DAT,*.DAT*,*.psd,*.lnk,*.mp4,*.pyc,Backup\**
 
 " Sets shell based on environment
@@ -30,7 +28,6 @@ endif
 " Can't live without these
 set number
 syntax on
-
 " Sets colorscheme. Always use molokai unless you're in a terminal on Windows
 " (no 256 colors on Windows term)
 set t_Co=256
@@ -41,7 +38,6 @@ else
 endif
 
 let mapleader = "\<space>"
-
 set nocp               " enable vim features
 set noswapfile         " no swap files
 set autowrite          " autowrites on :next, etc.
@@ -63,6 +59,7 @@ set splitbelow
 set splitright
 set to tm=3000 ttm=100
 set hlsearch
+set history=100
 
 " For use with `man`
 let $PAGER=''
@@ -130,7 +127,7 @@ nnoremap a; A;<esc>
 
 " Calls Tidy
 nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
-nnoremap <leader>zx :silent %!tidy --show-body-only no --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
+nnoremap <leader>zx :silent %!tidy --show-body-only no --indent auto --indent-spaces 4 --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
 
 " Compile/run cs files
 nnoremap <Leader>\c :!mcs %<CR>
@@ -180,6 +177,9 @@ nnoremap <C-Down> ddp
 vnoremap <C-Up> xkP`[V`]
 vnoremap <C-Down> xp`[V`]
 
+" Isolate Visual selection
+vnoremap <leader><space><space> dO<cr><esc>P
+
 " write and source current buffer
 nnoremap <leader>ss :w <bar> so %<cr>
 
@@ -217,6 +217,12 @@ inoremap <C-space> <Esc>
 " Command Mode maps
 cnoremap <C-a> <home>
 cnoremap <C-e> <end>
+cnoremap <c-p> <up>
+cnoremap <c-n> <down>
+cnoremap <c-f> <right>
+cnoremap <c-b> <left>
+cnoremap <m-f> <c-right>
+cnoremap <m-b> <c-left>
 
 " Command abbrevs
 ca W w
