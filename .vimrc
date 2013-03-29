@@ -59,7 +59,7 @@ set splitbelow
 set splitright
 set to tm=3000 ttm=100
 set hlsearch
-set history=100
+set history=1000
 
 " For use with `man`
 let $PAGER=''
@@ -205,14 +205,19 @@ nnoremap <leader>dt :difft<CR>
 nnoremap <leader>ds :vert diffsplit<CR>
 nnoremap <leader>do :diffo!<CR>
 
+" Clean Tracking Numbers
+nnoremap <leader>tr :%s/.*\(104\d\{3}<bar>63\d\{3}\)\p\{-},/\1,/g<CR>
+
 " Run Last :Tabularize
 nnoremap <leader>lt :Tab<up><CR>
 
 " Insert Mode Maps
 inoremap jk <Esc>
 inoremap <C-space> <Esc>
+inoremap <c-c> <c-r>+
 
 " Visual Mode Maps
+vnoremap <c-c> "+y
 
 " Command Mode maps
 cnoremap <C-a> <home>
