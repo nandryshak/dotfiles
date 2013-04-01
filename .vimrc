@@ -213,8 +213,9 @@ nnoremap <leader>lt :Tab<up><CR>
 
 " Insert Mode Maps
 inoremap jk <Esc>
-inoremap <C-space> <Esc>
+inoremap <C-space> <c-x><c-o>
 inoremap <c-c> <c-r>+
+inoremap <c-f> <c-o>x
 
 " Visual Mode Maps
 vnoremap <c-c> "+y

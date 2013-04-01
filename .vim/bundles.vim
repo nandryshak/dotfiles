@@ -9,7 +9,6 @@ Bundle 'gmarik/vundle'
 
 " github Bundles
 
-Bundle 'mhinz/vim-signify'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
@@ -32,11 +31,10 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'gregsexton/MatchTag'
 Bundle 'skammer/vim-css-color'
 
-" Only Colorscheme
+" The Only Colorscheme
 Bundle 'tomasr/molokai'
 
 " vim script Bundles
-Bundle 'django.vim'
 Bundle 'scratch.vim'
 
 filetype plugin indent on
