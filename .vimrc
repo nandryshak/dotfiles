@@ -285,16 +285,23 @@ vnoremap <leader>rd S<lt>div class=""<left>
 let g:syntastic_python_checkers=['pyflakes']
 
 " autocmds
-autocmd BufRead *.ascx set ft=html
-autocmd BufRead *.ashx set ft=cs
+augroup fts
+    au!
+    autocmd BufRead,BufNewFile *.ascx set ft=html
+    autocmd BufRead,BufNewFile *.aspx set ft=html
+    autocmd BufRead,BufNewFile *.ashx set ft=cs
+    autocmd BufRead,BufNewFile *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+    autocmd BufRead,BufNewFile *.py set nocindent
+    autocmd FileType ruby set ts=2 sts=2 sw=2 expandtab
+    autocmd FileType ruby let b:delimitMate_matchpairs = "(:),[:],{:},<:>,|:|"
+augroup END
+
 if has("win32")
     autocmd VimEnter * :call SetDirectory()
 endif
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd BufRead *.py set nocindent
+
 autocmd VimResized * :wincmd =
-autocmd FileType rb set ts=2 sts=2 sw=2 expandtab
-autocmd FileType rb let b:delimitMate_matchpairs = "(:),[:],{:},<:>,|:|"
+
 augroup cline
     au!
     au WinLeave,InsertEnter * set nocursorline
