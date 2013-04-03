@@ -205,11 +205,17 @@ nnoremap <leader>dt :difft<CR>
 nnoremap <leader>ds :vert diffsplit<CR>
 nnoremap <leader>do :diffo!<CR>
 
-" Clean Tracking Numbers
-nnoremap <leader>tr :%s/.*\(104\d\{3}<bar>63\d\{3}\)\p\{-},/\1,/g<CR>
-
 " Run Last :Tabularize
 nnoremap <leader>lt :Tab<up><CR>
+
+" TRACKING MAPS
+" Fix tracking number csv files for work
+nnoremap <leader>tq :%s/"//g<cr>
+nnoremap <leader>tt :Tab/,\zs<cr>
+nnoremap <leader>tn :%s/\v,\zs.*(10\d{4}).{-}(6\d{4}).{-}\ze,/\1<bar>\2/g<cr>
+nnoremap <leader>ts :sor n /,/<cr>
+nnoremap <leader>tp :%s/,\s\+/,/g<cr>
+
 
 " Insert Mode Maps
 inoremap jk <Esc>
@@ -231,11 +237,16 @@ cnoremap <m-f> <c-right>
 cnoremap <m-b> <c-left>
 
 " Command abbrevs
+ca Set set
 ca W w
 ca Q q
 ca Wq wq
 ca Wqa wqa
 ca q1 q!
+ca %S %s
+ca Cd cd
+ca E e
+iab QT QuickTreX
 
 " Plugin Maps and Options
 
