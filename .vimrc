@@ -115,15 +115,15 @@ nnoremap <s-cr> O<esc>
 nnoremap gB :silent !chrome "%:p"<CR>
 
 " Start Tabular.vim
-" BROKENINTERM: Just detects a space
+" FIXME: Just detects a space in terminal
 noremap <S-Space> :Tab/
 
 " Start a vimgrep and open results window
-" BROKENINTERM
+" FIXME in terminal
 nnoremap <C-space> :vim //g % \| cw<left><left><left><left><left><left><left><left><left>
 
 " Add a semicolon to EOL
-nnoremap a; A;<esc>
+nnoremap a; mqA;<esc>`q:silent! delm q<cr>
 
 " Calls Tidy
 nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
@@ -156,11 +156,11 @@ nnoremap <Tab> :bn<CR>
 nnoremap <S-Tab> :bp<CR>
 nnoremap <BS> <C-^>
 
-" BROKENINTERM
+" FIXME in terminal
 nnoremap <silent> <C-Tab> :silent! Bclose<CR>
 
 " resize current buffer by +/- 5 
-" These all BROKENINTERM. A darn shame.
+" FIXME These all broken in terminal. A darn shame.
 nnoremap <S-left> :vertical resize -5<cr>
 nnoremap <S-down> :resize +5<cr>
 nnoremap <S-up> :resize -5<cr>
@@ -212,18 +212,33 @@ nnoremap <leader>lt :Tab<up><CR>
 " Fix tracking number csv files for work
 nnoremap <leader>tq :%s/"//g<cr>
 nnoremap <leader>tt :Tab/,\zs<cr>
-nnoremap <leader>tn :%s/\v,\zs.*(10\d{4}).{-}(6\d{4}).{-}\ze,/\1<bar>\2/g<cr>
+nnoremap <leader>tn :%s/\v,.*\zs(10\d{4}).{-}(6\d{4}).{-}\ze,/\1<bar>\2/g<cr>
 nnoremap <leader>ts :sor n /,/<cr>
 nnoremap <leader>tp :%s/,\s\+/,/g<cr>
 
+" ULTIMATE 
+nnoremap <leader>tj :%s/"//g<cr><bar>Tab/,\zs<cr><bar>%s/\v,\zs.*(10\d{4}).{-}(6\d{4}).{-}\ze,/\1<bar>\2/g<cr><bar>sor n /,/<cr><bar>%s/,\s\+/,/g<cr>
 
-" Insert Mode Maps
+
+""" Insert Mode Maps
 inoremap jk <Esc>
+
+" Omni completion
 inoremap <C-space> <c-x><c-o>
+
+" paste from system clipboard
 inoremap <c-c> <c-r>+
+
+" del key
 inoremap <c-f> <c-o>x
 
-" Visual Mode Maps
+" next line
+inoremap <cr> <c-o>o
+
+" split line
+inoremap <c-k> <cr>
+
+""" Visual Mode Maps
 vnoremap <c-c> "+y
 
 " Command Mode maps
