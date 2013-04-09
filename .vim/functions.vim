@@ -1,4 +1,17 @@
 " Functions file
+"
+" HTML/CSS plugin idea:
+" Can jump to style definition based on class/id
+"   Jump to external stylesheet, <style> tag, or inline style.
+" Quick add/change/delete class/id/style/attribute
+" Sort attribs: alpha/custom sort
+
+function! CleanUp()
+    execute 'g/lanshack/d'
+    execute 'g/void/d'
+    execute '%s/\v^.{-},\zs.{-}(\d{6}).{-}(\d{5}).{-}\ze,/\1|\2/g'
+    execute '%s/\v^.{-},\zs.{-}(\d{6})\@!.{-}\ze,/\1/g'
+endfunction
 
 " Increments a visual column of numbers. Make the whole columns one number.
 " This number will be the starting point for the incrementation.
@@ -12,32 +25,9 @@ function! Incr()
 endfunction
 vnoremap <C-a> :call Incr()<CR>
 
-" Formats HTML
-function FormatHtml()
-    %s/^\s\+//ge
-    exec "normal gg=G"
-endfunction
-" Split tags, delete blank lines
-function SplitTags()
-    :%s/></>\r</g " splits tags onto separate lins
-    silent! :g/^$/d " deletes empty lines
-    silent! :g/^\s*$/d " deletes lines with only whitespace
-endfunction
-" split CSS
-function SplitCSS()
-    :%s/; /&\r/ge
-    :%s/{ /&\r/ge
-    :%s/}/\r&/ge
-endfunction
-" Copies buffer to system clipboard
-function CopyAll()
-    silent! :normal gg"+yGzz
-endfunction
 " Sets the working directory to the path of the current buffer
-function SetDirectory()
-    if filereadable(glob('O:\NickWorkHours\atWork.txt'))
-        :cd O:\Pages
-    elseif filereadable(glob('~\NoDrive.txt'))
+function! SetDirectory()
+    if filereadable(glob('~\NoDrive.txt'))
         :cd C:\Users\IPS_LANshack\Documents\Pages
     elseif filereadable('~\atHome.txt')
         :cd C:\Users\Nick\Desktop
@@ -46,25 +36,6 @@ function SetDirectory()
     else
         :cd ~
     endif
-endfunction
-
-" Cleans up HTML copied from prweb
-function PressReleaseCleanup()
-    silent! exec "g/user\-login/normal 5dd"
-    silent! exec "g/create\-account/normal 5dd"
-    silent! exec "g/###/normal dG"
-    silent! %s/“/"/g
-    silent! %s/”/"/g
-    silent! %s/ onclick="linkClick(this.href)"//g
-    silent! %s/<br \/>//g
-    silent! %s/<br\/>//g
-    silent! %s/ class="releaseDateline"//g
-    silent! %s/(PRWEB)/—/g
-    silent! %s/# # #/<\/p><p>&<\/p>/g
-    silent! %s/About LANshack.com/<strong>&<\/strong><\/p>/g
-    silent! %s/Founded/<p>&/g
-    silent! %s/’/'/g
-    silent! %s///g
 endfunction
 
 " Delete buffer while keeping window layout (don't close buffer's windows).

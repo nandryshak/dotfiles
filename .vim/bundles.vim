@@ -9,14 +9,9 @@ Bundle 'gmarik/vundle'
 
 " github Bundles
 
-Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
-Bundle 'michaeljsmith/vim-indent-object'
-Bundle 'davidhalter/jedi-vim'
 Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'vim-ruby/vim-ruby'
 Bundle 'dahu/SearchParty'
 Bundle 'SirVer/ultisnips'
 Bundle 'godlygeek/tabular'
@@ -26,10 +21,26 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'kshenoy/vim-signature'
-Bundle 'tsaleh/vim-matchit'
 Bundle 'Raimondi/delimitMate'
-Bundle 'gregsexton/MatchTag'
+
+" Ruby
+Bundle 'tpope/vim-rails'
+Bundle 'vim-ruby/vim-ruby'
+
+" Python
+Bundle 'davidhalter/jedi-vim'
+
+" Web
 Bundle 'skammer/vim-css-color'
+Bundle 'gregsexton/MatchTag'
+Bundle 'maksimr/vim-jsbeautify'
+Bundle 'tsaleh/vim-matchit'
+
+" Text objects
+Bundle 'michaeljsmith/vim-indent-object'
+Bundle 'coderifous/textobj-word-column.vim'
+Bundle 'bkad/CamelCaseMotion'
+Bundle 'paradigm/TextObjectify'
 
 " The Only Colorscheme
 Bundle 'tomasr/molokai'

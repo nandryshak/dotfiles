@@ -73,39 +73,29 @@ set undolevels=10000     " numbers of particular undos to save
 set undoreload=100000    " number of undo lines to save
 
 " Normal Mode Maps
+" Disable arrow keys in normal mode.
 nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <right> <nop>
 nnoremap <left> <nop>
 
-" Move around lines
+" Move around lines better sometimes
 nnoremap <C-h> ^
 nnoremap <C-k> -
 nnoremap <C-j> <C-m>
 
-" Stops me from entering ex mode on accident
+" Stops me from entering ex mode on accident. I don't use it anyway.
 nnoremap Q <nop>
 
 " Prevents character deletes from going into a register (_ is a blackhole)
 nnoremap x "_x
 
-" Show whitespace
-" nnoremap <Leader>i :set list!<CR>
-
-" Function maps
-    " Pastes system clipboard
+" Pastes system clipboard. Use <c-q> to enter visual block mode. You may have
+" to change terminal settings for it to work.
 nnoremap <c-v> "+P
-nnoremap <C-c> :call CopyAll()<CR>
-nnoremap <Leader>ff :call FormatHtml()<CR>
-nnoremap <Leader>fs :call SplitTags()<CR>
-nnoremap <Leader>fc :call SplitCSS()<CR>
-nnoremap <Leader>pr :call PressReleaseCleanup()<CR>
 
 " Splits an html and css file nicely
 nnoremap <Leader>vs :vs<CR>:bnext<CR><c-w><c-w>:vert resize 100<CR>
-
-" Splits a line at cursor
-nnoremap K i<cr><esc>
 
 " Adds a new line below/above current
 nnoremap <cr> o<esc>
@@ -115,15 +105,22 @@ nnoremap <s-cr> O<esc>
 nnoremap gB :silent !chrome "%:p"<CR>
 
 " Start Tabular.vim
-" FIXME: Just detects a space in terminal
+" FIXME. Just detects a space in terminal
 noremap <S-Space> :Tab/
 
 " Start a vimgrep and open results window
 " FIXME in terminal
 nnoremap <C-space> :vim //g % \| cw<left><left><left><left><left><left><left><left><left>
 
-" Add a semicolon to EOL
-nnoremap a; mqA;<esc>`q:silent! delm q<cr>
+" Add a semicolon, period, etc. to EOL. I should probably make this into a
+" function so it's compatible with any key but I'm lazy.
+nnoremap a; m`A;<esc>``
+nnoremap a: m`A:<esc>``
+nnoremap a. m`A.<esc>``
+nnoremap a, m`A,<esc>``
+nnoremap a> m`A><esc>``
+nnoremap a! m`A!<esc>``
+nnoremap a? m`A?<esc>``
 
 " Calls Tidy
 nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
@@ -212,13 +209,21 @@ nnoremap <leader>lt :Tab<up><CR>
 " Fix tracking number csv files for work
 nnoremap <leader>tq :%s/"//g<cr>
 nnoremap <leader>tt :Tab/,\zs<cr>
-nnoremap <leader>tn :%s/\v,.*\zs(10\d{4}).{-}(6\d{4}).{-}\ze,/\1<bar>\2/g<cr>
+
+nnoremap <leader>ti :call CleanUp()<cr>
+nnoremap <leader>tc :s/\v^.{-},\zs.{-}\ze,//g<cr>
+
 nnoremap <leader>ts :sor n /,/<cr>
 nnoremap <leader>tp :%s/,\s\+/,/g<cr>
+" END TRACKING MAPS
 
-" ULTIMATE 
-nnoremap <leader>tj :%s/"//g<cr><bar>Tab/,\zs<cr><bar>%s/\v,\zs.*(10\d{4}).{-}(6\d{4}).{-}\ze,/\1<bar>\2/g<cr><bar>sor n /,/<cr><bar>%s/,\s\+/,/g<cr>
+" Beautifiers
+nnoremap <leader>jx :call JsBeautify()<cr>
+nnoremap <leader>hx :call HtmlBeautify()<cr>
+nnoremap <leader>cx :call CSSBeautify()<cr>
 
+" Copy buffer to system clipboard
+nnoremap <c-c> :%y +<cr>
 
 """ Insert Mode Maps
 inoremap jk <Esc>
@@ -229,19 +234,22 @@ inoremap <C-space> <c-x><c-o>
 " paste from system clipboard
 inoremap <c-c> <c-r>+
 
-" del key
+" extra del key
 inoremap <c-f> <c-o>x
 
-" next line
-inoremap <cr> <c-o>o
-
-" split line
+" split a line at cursor
 inoremap <c-k> <cr>
 
+" next line
+inoremap <enter> <c-o>o
+
 """ Visual Mode Maps
+" Copy visual selection to system clipboard. Use v, V, or <c-q> to exit visual
+" mode.
 vnoremap <c-c> "+y
 
 " Command Mode maps
+" Heresy.
 cnoremap <C-a> <home>
 cnoremap <C-e> <end>
 cnoremap <c-p> <up>
@@ -261,9 +269,16 @@ ca q1 q!
 ca %S %s
 ca Cd cd
 ca E e
-iab QT QuickTreX
 
 " Plugin Maps and Options
+
+" CamelCase
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+sunmap w
+sunmap b
+sunmap e
 
 " YouCompleteMe
 let g:ycm_key_list_select_completion = ['<Enter>', '<Down>']
@@ -288,6 +303,7 @@ let g:ctrlp_open_multiple_files = '1r'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = '*.dat'
 nnoremap <c-[> :CtrlP C:\Users\IPS_lanshack\Documents\Pages<CR>
+nnoremap <leader>cpa :CtrlP ~/Documents/Github/Acanthophis<CR>
 
 " SuperTab Options
 let g:SuperTabDefaultCompletionType = "context"
@@ -385,3 +401,30 @@ function! s:NumberTextObject(whole)
     endif
 endfunction
 " }}}
+
+" Motion for "next/last object". For example, "din(" would go to the next "()" pair
+" and delete its contents.
+ 
+onoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
+onoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
+xnoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
+ 
+onoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+xnoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+onoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+xnoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+ 
+function! s:NextTextObject(motion, dir)
+  let c = nr2char(getchar())
+ 
+  if c ==# "b"
+      let c = "("
+  elseif c ==# "B"
+      let c = "{"
+  elseif c ==# "d"
+      let c = "["
+  endif
+ 
+  exe "normal! ".a:dir.c."v".a:motion.c
+endfunction
