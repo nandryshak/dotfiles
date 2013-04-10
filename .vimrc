@@ -121,6 +121,24 @@ nnoremap a, m`A,<esc>``
 nnoremap a> m`A><esc>``
 nnoremap a! m`A!<esc>``
 nnoremap a? m`A?<esc>``
+" Add characters after a word.
+nnoremap <c-e>. m`ea.<esc>``
+nnoremap <c-e>, m`ea,<esc>``
+nnoremap <c-e>; m`ea;<esc>``
+nnoremap <c-e>: m`ea:<esc>``
+nnoremap <c-e><space> m`ea<space><esc>``
+nnoremap <c-e><cr> m`ea<cr><esc>``
+nnoremap <c-e>= ea<space>=<space>
+nnoremap <c-e><bar> m`ea\|<esc>``
+" Add characters before a word
+nnoremap <c-b>. m`bi.<esc>``l
+nnoremap <c-b>, m`bi,<esc>``l
+nnoremap <c-b>; m`bi;<esc>``l
+nnoremap <c-b>: m`bi:<esc>``l
+nnoremap <c-b><space> m`bi<space><esc>``l
+nnoremap <c-b><cr> m`bi<cr><esc>``l
+nnoremap <c-b>= bi<space>=<space><esc>``l
+nnoremap <c-b><bar> m`bi\|<esc>``l
 
 " Calls Tidy
 nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
