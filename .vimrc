@@ -60,6 +60,7 @@ set splitright
 set to tm=3000 ttm=100
 set hlsearch
 set history=1000
+set linebreak
 
 " For use with `man`
 let $PAGER=''
