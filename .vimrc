@@ -231,6 +231,7 @@ nnoremap <leader>tt :Tab/,\zs<cr>
 
 nnoremap <leader>ti :call CleanUp()<cr>
 nnoremap <leader>tc :s/\v^.{-},\zs.{-}\ze,//g<cr>
+nnoremap <leader>td %s/\v((10\d{4}).*)\n.*(\2)/\1/<cr>
 
 nnoremap <leader>ts :sor n /,/<cr>
 nnoremap <leader>tp :%s/,\s\+/,/g<cr>
