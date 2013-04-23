@@ -10,7 +10,6 @@ function! CleanUp()
     silent! execute 'g/lanshack/d'
     silent! execute 'g/void/d'
     silent! execute '%s/\v^.{-},\zs.{-}(10\d{4}).{-}(6\d{4}).{-}\ze,/\1|\2/g'
-    silent! execute '%s/\v^.{-},\zs.{-}(10\d{4})\@!.{-}\ze,/\1/g'
 endfunction
 
 " Increments a visual column of numbers. Make the whole columns one number.

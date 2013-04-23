@@ -122,6 +122,9 @@ nnoremap a, m`A,<esc>``
 nnoremap a> m`A><esc>``
 nnoremap a! m`A!<esc>``
 nnoremap a? m`A?<esc>``
+nnoremap a0 m`A)<esc>``
+nnoremap a] m`A]<esc>``
+nnoremap a} m`A}<esc>``
 " Add characters after a word.
 nnoremap <c-e>. m`ea.<esc>``
 nnoremap <c-e>, m`ea,<esc>``
@@ -130,7 +133,7 @@ nnoremap <c-e>: m`ea:<esc>``
 nnoremap <c-e><space> m`ea<space><esc>``
 nnoremap <c-e><cr> m`ea<cr><esc>``
 nnoremap <c-e>= ea<space>=<space>
-nnoremap <c-e><bar> m`ea\|<esc>``
+nnoremap <c-e>\ m`ea\|<esc>``
 " Add characters before a word
 nnoremap <c-b>. m`bi.<esc>``l
 nnoremap <c-b>, m`bi,<esc>``l
@@ -139,7 +142,7 @@ nnoremap <c-b>: m`bi:<esc>``l
 nnoremap <c-b><space> m`bi<space><esc>``l
 nnoremap <c-b><cr> m`bi<cr><esc>``l
 nnoremap <c-b>= bi<space>=<space><esc>``l
-nnoremap <c-b><bar> m`bi\|<esc>``l
+nnoremap <c-b>\ m`bi\|<esc>``l
 
 " Calls Tidy
 nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
@@ -174,6 +177,9 @@ nnoremap <BS> <C-^>
 
 " FIXME in terminal
 nnoremap <silent> <C-Tab> :silent! Bclose<CR>
+
+" FIXME in terminal
+nnoremap <silent> <c-s-tab> :silent! Bdel!<CR>
 
 " resize current buffer by +/- 5 
 " FIXME These all broken in terminal. A darn shame.
@@ -210,8 +216,9 @@ nnoremap <leader>er :Errors<CR>
 nnoremap <leader>cd :lcd %:p:h<CR>:cd<CR>
 
 " Add a class/id to the first HTML tag on the line
-nnoremap <leader>ac :s/<\zs\w\+\s/&class="" /<CR>ci"
-nnoremap <leader>ai :s/<\zs\w\+\s/&id="" /<CR>ci"
+nnoremap <leader>ac :silent! s/<\zs\w\+/& class=""/<CR>ci"
+nnoremap <leader>ai :silent! s/<\zs\w\+/& id=""/<CR>ci"
+nnoremap <leader>aa :silent! s/\vimg.{-}\zs\ze\>/ alt=""/g<CR>ci"
 
 " Open Scratch buffer
 nnoremap <leader>tmp :Scratch<CR>
@@ -231,7 +238,7 @@ nnoremap <leader>tt :Tab/,\zs<cr>
 
 nnoremap <leader>ti :call CleanUp()<cr>
 nnoremap <leader>tc :s/\v^.{-},\zs.{-}\ze,//g<cr>
-nnoremap <leader>td %s/\v((10\d{4}).*)\n.*(\2)/\1/<cr>
+nnoremap <leader>td :%s/\v((10\d{4}).*)\n.*(\2)/\1/<cr>
 
 nnoremap <leader>ts :sor n /,/<cr>
 nnoremap <leader>tp :%s/,\s\+/,/g<cr>
@@ -245,7 +252,12 @@ nnoremap <leader>cx :call CSSBeautify()<cr>
 " Copy buffer to system clipboard
 nnoremap <c-c> :%y +<cr>
 
+" split line
+nnoremap K i<cr><esc>
+
 """ Insert Mode Maps
+inoremap AA <c-o>A
+
 inoremap jk <Esc>
 
 " Omni completion
@@ -261,7 +273,7 @@ inoremap <c-f> <c-o>x
 inoremap <c-k> <cr>
 
 " next line
-inoremap <enter> <c-o>o
+inoremap <cr> <c-o>o
 
 """ Visual Mode Maps
 " Copy visual selection to system clipboard. Use v, V, or <c-q> to exit visual
@@ -292,6 +304,33 @@ ca E e
 
 " Plugin Maps and Options
 
+" let g:neocomplcache_enable_at_startup = 1
+" let g:neocomplcache_enable_smart_case = 1
+" let g:neocomplcache_enable_camel_case_completion = 1
+" let g:neocomplcache_enable_underbar_completion = 1
+
+" inoremap <expr><c-g> neocomplcache#undo_completion()
+" inoremap <expr><c-l> neocomplcache#complete_common_string()
+
+" " <CR>: Close popups and save indent
+" inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>"
+" " <TAB>: Completion
+" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" " <C-h>, <BS>: Close pop up and delete char
+" inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+
+" let g:neocomplcache_enable_auto_select = 1
+
+" augroup Omni
+    " au!
+    " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" augroup END
+
 " CamelCase
 map <silent> w <Plug>CamelCaseMotion_w
 map <silent> b <Plug>CamelCaseMotion_b
@@ -299,10 +338,6 @@ map <silent> e <Plug>CamelCaseMotion_e
 sunmap w
 sunmap b
 sunmap e
-
-" YouCompleteMe
-let g:ycm_key_list_select_completion = ['<Enter>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<S-Enter>', '<Up>']
 
 " DelimitMate
 let delimitMate_expand_cr = 1
@@ -344,7 +379,8 @@ vnoremap <leader>rli :normal yss<li><cr>
 vnoremap <leader>rd S<lt>div class=""<left>
 
 " Syntastic 
-let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_python_checkers = ['pyflakes']
+let g:syntastic_mode_map = { 'mode': 'passive' }
 
 " autocmds
 augroup fts

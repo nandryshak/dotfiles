@@ -44,6 +44,7 @@ Bundle 'paradigm/TextObjectify'
 
 " The Only Colorscheme
 Bundle 'tomasr/molokai'
+Bundle 'nandryshak/vim-hybrid'
 
 " vim script Bundles
 Bundle 'scratch.vim'
