@@ -255,6 +255,7 @@ nnoremap <c-c> :%y +<cr>
 " split line
 nnoremap K i<cr><esc>
 
+
 """ Insert Mode Maps
 inoremap AA <c-o>A
 
@@ -271,6 +272,9 @@ inoremap <c-f> <c-o>x
 
 " split a line at cursor
 inoremap <c-k> <cr>
+
+" next line
+inoremap <c-j> <c-o>o
 
 " next line
 inoremap <cr> <c-o>o
@@ -304,32 +308,16 @@ ca E e
 
 " Plugin Maps and Options
 
-" let g:neocomplcache_enable_at_startup = 1
-" let g:neocomplcache_enable_smart_case = 1
-" let g:neocomplcache_enable_camel_case_completion = 1
-" let g:neocomplcache_enable_underbar_completion = 1
-
-" inoremap <expr><c-g> neocomplcache#undo_completion()
-" inoremap <expr><c-l> neocomplcache#complete_common_string()
-
-" " <CR>: Close popups and save indent
-" inoremap <expr><CR> neocomplcache#smart_close_popup() . "\<CR>"
-" " <TAB>: Completion
-" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-" " <C-h>, <BS>: Close pop up and delete char
-" inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-" inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-
-" let g:neocomplcache_enable_auto_select = 1
-
-" augroup Omni
-    " au!
-    " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" augroup END
+" TextObjColumn remaps. The default's conflict with comment objects
+let g:skip_default_textobj_word_column_mappings = 1
+xnoremap <silent> av :<C-U>call TextObjWordBasedColumn("aw")<CR>
+onoremap <silent> av :call TextObjWordBasedColumn("aw")<CR>
+xnoremap <silent> iv :<C-U>call TextObjWordBasedColumn("iw")<CR>
+onoremap <silent> iv :call TextObjWordBasedColumn("iw")<CR>
+xnoremap <silent> aV :<C-U>call TextObjWordBasedColumn("aW")<CR>
+onoremap <silent> aV :call TextObjWordBasedColumn("aW")<CR>
+xnoremap <silent> iV :<C-U>call TextObjWordBasedColumn("iW")<CR>
+onoremap <silent> iV :call TextObjWordBasedColumn("iW")<CR>
 
 " CamelCase
 map <silent> w <Plug>CamelCaseMotion_w
@@ -383,6 +371,9 @@ let g:syntastic_python_checkers = ['pyflakes']
 let g:syntastic_mode_map = { 'mode': 'passive' }
 
 " autocmds
+augroup bufenters
+    au!
+    autocmd BufEnter * syntax sync fromstart
 augroup fts
     au!
     autocmd BufRead,BufNewFile *.ascx set ft=html
@@ -466,10 +457,10 @@ xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
 onoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
 xnoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
  
-onoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-xnoremap al :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-onoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
-xnoremap il :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+onoremap ap :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+xnoremap ap :<c-u>call <SID>NextTextObject('a', 'F')<cr>
+onoremap ip :<c-u>call <SID>NextTextObject('i', 'F')<cr>
+xnoremap ip :<c-u>call <SID>NextTextObject('i', 'F')<cr>
  
 function! s:NextTextObject(motion, dir)
   let c = nr2char(getchar())

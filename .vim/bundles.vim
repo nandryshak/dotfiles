@@ -22,6 +22,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'kshenoy/vim-signature'
 Bundle 'Raimondi/delimitMate'
+Bundle 'nandryshak/Fashion.vim'
 
 " Ruby
 Bundle 'tpope/vim-rails'
@@ -30,7 +31,7 @@ Bundle 'vim-ruby/vim-ruby'
 " Python
 Bundle 'davidhalter/jedi-vim'
 
-" Web
+" Webdev
 Bundle 'skammer/vim-css-color'
 Bundle 'gregsexton/MatchTag'
 Bundle 'maksimr/vim-jsbeautify'
@@ -42,9 +43,11 @@ Bundle 'coderifous/textobj-word-column.vim'
 Bundle 'bkad/CamelCaseMotion'
 Bundle 'paradigm/TextObjectify'
 
+Bundle 'kana/vim-textobj-user'
+Bundle 'glts/vim-textobj-comment'
+
 " The Only Colorscheme
 Bundle 'tomasr/molokai'
-Bundle 'nandryshak/vim-hybrid'
 
 " vim script Bundles
 Bundle 'scratch.vim'
