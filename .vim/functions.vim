@@ -1,13 +1,8 @@
 " Functions file
 "
-" HTML/CSS plugin idea:
-" Can jump to style definition based on class/id
-"   Jump to external stylesheet, <style> tag, or inline style.
-" Quick add/change/delete class/id/style/attribute
-" Sort attribs: alpha/custom sort
 
 function! CleanUp()
-    silent! execute 'g/lanshack/d'
+    silent! execute 'g/shack/d'
     silent! execute 'g/void/d'
     silent! execute '%s/\v^.{-},\zs.{-}(10\d{4}).{-}(6\d{4}).{-}\ze,/\1|\2/g'
 endfunction
@@ -27,7 +22,7 @@ vnoremap <C-a> :call Incr()<CR>
 " Sets the working directory to the path of the current buffer
 function! SetDirectory()
     if filereadable(glob('~\NoDrive.txt'))
-        :cd C:\Users\IPS_LANshack\Documents\Pages
+        :cd C:\Users\IPS_\Documents\Pages
     elseif filereadable('~\atHome.txt')
         :cd C:\Users\Nick\Desktop
     elseif filereadable('~/vps.txt')

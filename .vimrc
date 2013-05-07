@@ -345,7 +345,6 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = '1r'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = '*.dat'
-nnoremap <c-[> :CtrlP C:\Users\IPS_lanshack\Documents\Pages<CR>
 nnoremap <leader>cpa :CtrlP ~/Documents/Github/Acanthophis<CR>
 
 " SuperTab Options
