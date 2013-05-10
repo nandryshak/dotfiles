@@ -22,7 +22,7 @@ vnoremap <C-a> :call Incr()<CR>
 " Sets the working directory to the path of the current buffer
 function! SetDirectory()
     if filereadable(glob('~\NoDrive.txt'))
-        :cd C:\Users\IPS_\Documents\Pages
+        :cd ~\Documents\Pages
     elseif filereadable('~\atHome.txt')
         :cd C:\Users\Nick\Desktop
     elseif filereadable('~/vps.txt')
@@ -48,7 +48,6 @@ function! s:Warn(msg)
   echomsg a:msg
   echohl NONE
 endfunction
-
 " Command ':Bclose' executes ':bd' to delete buffer in current window.
 " The window will show the alternate buffer (Ctrl-^) if it exists,
 " or the previous buffer (:bp), or a blank buffer if no previous.

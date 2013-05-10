@@ -22,7 +22,7 @@ set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.jpeg,*.gif
 if has("win32")
     set shell=cmd.exe
 else
-    set shell=/bin/bash
+    set shell=/bin/zsh
 endif
 
 " Can't live without these
@@ -255,6 +255,9 @@ nnoremap <c-c> :%y +<cr>
 " split line
 nnoremap K i<cr><esc>
 
+" update buffer
+nnoremap <c-s> :up<cr>
+
 
 """ Insert Mode Maps
 inoremap AA <c-o>A
@@ -275,9 +278,6 @@ inoremap <c-k> <cr>
 
 " next line
 inoremap <c-j> <c-o>o
-
-" next line
-inoremap <cr> <c-o>o
 
 """ Visual Mode Maps
 " Copy visual selection to system clipboard. Use v, V, or <c-q> to exit visual
@@ -345,7 +345,6 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = '1r'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = '*.dat'
-nnoremap <leader>cpa :CtrlP ~/Documents/Github/Acanthophis<CR>
 
 " SuperTab Options
 let g:SuperTabDefaultCompletionType = "context"
@@ -447,30 +446,3 @@ function! s:NumberTextObject(whole)
     endif
 endfunction
 " }}}
-
-" Motion for "next/last object". For example, "din(" would go to the next "()" pair
-" and delete its contents.
- 
-onoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
-xnoremap an :<c-u>call <SID>NextTextObject('a', 'f')<cr>
-onoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
-xnoremap in :<c-u>call <SID>NextTextObject('i', 'f')<cr>
- 
-onoremap ap :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-xnoremap ap :<c-u>call <SID>NextTextObject('a', 'F')<cr>
-onoremap ip :<c-u>call <SID>NextTextObject('i', 'F')<cr>
-xnoremap ip :<c-u>call <SID>NextTextObject('i', 'F')<cr>
- 
-function! s:NextTextObject(motion, dir)
-  let c = nr2char(getchar())
- 
-  if c ==# "b"
-      let c = "("
-  elseif c ==# "B"
-      let c = "{"
-  elseif c ==# "d"
-      let c = "["
-  endif
- 
-  exe "normal! ".a:dir.c."v".a:motion.c
-endfunction
