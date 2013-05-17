@@ -258,6 +258,8 @@ nnoremap K i<cr><esc>
 " update buffer
 nnoremap <c-s> :up<cr>
 
+" Edit ultisnips
+nnoremap <leader>ue :e ~/.vim/bundle/ultisnips/UltiSnips/
 
 """ Insert Mode Maps
 inoremap AA <c-o>A
@@ -374,6 +376,7 @@ augroup bufenters
     autocmd BufEnter * syntax sync fromstart
 augroup fts
     au!
+    autocmd BufRead,BufNewFile *.md set ft=markdown
     autocmd BufRead,BufNewFile *.ascx set ft=html
     autocmd BufRead,BufNewFile *.aspx set ft=html
     autocmd BufRead,BufNewFile *.ashx set ft=cs

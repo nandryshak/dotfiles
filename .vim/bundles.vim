@@ -31,6 +31,9 @@ Bundle 'vim-ruby/vim-ruby'
 " Python
 Bundle 'davidhalter/jedi-vim'
 
+" Markdown
+Bundle 'tpope/vim-markdown'
+
 " Webdev
 Bundle 'skammer/vim-css-color'
 Bundle 'gregsexton/MatchTag'
