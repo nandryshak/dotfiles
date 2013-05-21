@@ -74,11 +74,13 @@ set undolevels=10000     " numbers of particular undos to save
 set undoreload=100000    " number of undo lines to save
 
 " Normal Mode Maps
-" Disable arrow keys in normal mode.
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <right> <nop>
-nnoremap <left> <nop>
+
+" Window movement
+nnoremap <up> <c-w>k
+nnoremap <down> <c-w>j
+nnoremap <right> <c-w>l
+nnoremap <left> <c-w>h
+nnoremap <c-right> <c-w>w
 
 " Move around lines better sometimes
 nnoremap <C-h> ^
@@ -148,10 +150,6 @@ nnoremap <c-b>\ m`bi\|<esc>``l
 nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
 nnoremap <leader>zx :silent %!tidy --show-body-only no --indent auto --indent-spaces 4 --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
 
-" Compile/run cs files
-nnoremap <Leader>\c :!mcs %<CR>
-nnoremap <Leader>\r :!cd %:p:h && mono<space><C-r>%<BS><BS>exe<CR>
-
 " Togggle set wrap
 nnoremap <Leader>w :set wrap!<CR>
 
@@ -172,8 +170,7 @@ nnoremap <Leader>sv :w<CR>:so %<CR>:bdel<CR>
 
 " Buffer Maps
 nnoremap <Tab> :bn<CR>
-nnoremap <S-Tab> :bp<CR>
-nnoremap <BS> <C-^>
+nnoremap <BS> :bp<CR>
 
 " FIXME in terminal
 nnoremap <silent> <C-Tab> :silent! Bclose<CR>
@@ -211,6 +208,9 @@ vnoremap ? :s/<c-r>///g<left><left>
 
 " Open Syntastic errors
 nnoremap <leader>er :Errors<CR>
+
+" Copen
+nnoremap <leader>co :copen<cr>
 
 " Changes windows to the directory of the current buffer
 nnoremap <leader>cd :lcd %:p:h<CR>:cd<CR>
@@ -262,8 +262,13 @@ nnoremap <c-s> :up<cr>
 nnoremap <leader>ue :e ~/.vim/bundle/ultisnips/UltiSnips/
 
 """ Insert Mode Maps
+" Add semi-colon to EOL
+inoremap ;; <esc>m`A;<esc>``a
+
+" Goto EOL
 inoremap AA <c-o>A
 
+" The only way to exit insert mode
 inoremap jk <Esc>
 
 " Omni completion
@@ -283,7 +288,7 @@ inoremap <c-j> <c-o>o
 
 """ Visual Mode Maps
 " Copy visual selection to system clipboard. Use v, V, or <c-q> to exit visual
-" mode.
+" mode without copying.
 vnoremap <c-c> "+y
 
 " Command Mode maps
