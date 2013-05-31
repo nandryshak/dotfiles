@@ -261,12 +261,18 @@ nnoremap <c-s> :up<cr>
 " Edit ultisnips
 nnoremap <leader>ue :e ~/.vim/bundle/ultisnips/UltiSnips/
 
+" Align C comments
+nnoremap <leader>a/ :Tab/^[^\/]*\zs\//l1l0<cr>
+
+" make and run
+nnoremap <leader>m :make %:r\|copen<cr>:!%:r
+
 """ Insert Mode Maps
 " Add semi-colon to EOL
-inoremap ;; <esc>m`A;<esc>``a
+inoremap <c-l> <esc>m`A;<esc>``a
 
 " Goto EOL
-inoremap AA <c-o>A
+inoremap <c-a> <c-o>A
 
 " The only way to exit insert mode
 inoremap jk <Esc>
@@ -382,6 +388,7 @@ augroup bufenters
 augroup fts
     au!
     autocmd BufRead,BufNewFile *.md set ft=markdown
+    autocmd BufRead,BufNewFile *.config set ft=xml
     autocmd BufRead,BufNewFile *.ascx set ft=html
     autocmd BufRead,BufNewFile *.aspx set ft=html
     autocmd BufRead,BufNewFile *.ashx set ft=cs
