@@ -280,6 +280,7 @@ nnoremap <leader>sr :%s//\=Sum(submatch(0))/g\|echo g:S<home><right><right><righ
 
 
 """ Insert Mode Maps
+inoremap ./ </<C-X><C-O><del>
 
 " More undo points
 inoremap . .<C-g>u
