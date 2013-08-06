@@ -61,6 +61,8 @@ set to tm=3000 ttm=100
 set hlsearch
 set history=1000
 set linebreak
+set textwidth=0
+set nostartofline
 
 " For use with `man`
 let $PAGER=''
@@ -113,7 +115,7 @@ noremap <S-Space> :Tab/
 
 " Start a vimgrep and open results window
 " FIXME in terminal
-nnoremap <C-space> :vim //g % \| cw<left><left><left><left><left><left><left><left><left>
+nnoremap <C-space> :vim //g ** \| cw<home><right><right><right><right><right>
 
 " Add a semicolon, period, etc. to EOL. I should probably make this into a
 " function so it's compatible with any key but I'm lazy.
@@ -267,7 +269,25 @@ nnoremap <leader>a/ :Tab/^[^\/]*\zs\//l1l0<cr>
 " make and run
 nnoremap <leader>m :make %:r\|copen<cr>:!%:r
 
+" Spell check
+nnoremap \s ea<C-X><C-S>
+
+" Sum first numbers
+nnoremap <leader>sf :%s/\d\+/\=Sum(submatch(0))/g<cr>:echo g:S<cr>
+
+" Sum regex numbers
+nnoremap <leader>sr :%s//\=Sum(submatch(0))/g\|echo g:S<home><right><right><right>
+
+
 """ Insert Mode Maps
+
+" More undo points
+inoremap . .<C-g>u
+inoremap ! !<C-g>u
+inoremap ? ?<C-g>u
+inoremap : :<C-g>u
+inoremap ; ;<C-g>u
+
 " Add semi-colon to EOL
 inoremap <c-l> <esc>m`A;<esc>``a
 
@@ -275,7 +295,7 @@ inoremap <c-l> <esc>m`A;<esc>``a
 inoremap <c-a> <c-o>A
 
 " The only way to exit insert mode
-inoremap jk <Esc>
+inoremap jk <esc>
 
 " Omni completion
 inoremap <C-space> <c-x><c-o>
@@ -318,6 +338,11 @@ ca q1 q!
 ca %S %s
 ca Cd cd
 ca E e
+
+" Commands 
+command! -range=% SoftWrap
+            \ <line2>put _ |
+            \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
 
 " Plugin Maps and Options
 
@@ -382,13 +407,18 @@ let g:syntastic_python_checkers = ['pyflakes']
 let g:syntastic_mode_map = { 'mode': 'passive' }
 
 " autocmds
+augroup PROSE
+    autocmd BufRead,BufNewFile *.md set ft=markdown
+    autocmd BufRead,BufNewFile *.md setlocal textwidth=74
+    autocmd BufRead,BufNewFile *.md set formatoptions=t1
+augroup END
 augroup bufenters
     au!
     autocmd BufEnter * syntax sync fromstart
 augroup fts
     au!
-    autocmd BufRead,BufNewFile *.md set ft=markdown
     autocmd BufRead,BufNewFile *.config set ft=xml
+    autocmd BufRead,BufNewFile *.master set ft=html
     autocmd BufRead,BufNewFile *.ascx set ft=html
     autocmd BufRead,BufNewFile *.aspx set ft=html
     autocmd BufRead,BufNewFile *.ashx set ft=cs
