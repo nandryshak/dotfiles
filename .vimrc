@@ -116,6 +116,7 @@ noremap <S-Space> :Tab/
 " Start a vimgrep and open results window
 " FIXME in terminal
 nnoremap <C-space> :vim //g ** \| cw<home><right><right><right><right><right>
+nnoremap <C-S-space> :vim //g % \| cw<home><right><right><right><right><right>
 
 " Add a semicolon, period, etc. to EOL. I should probably make this into a
 " function so it's compatible with any key but I'm lazy.
