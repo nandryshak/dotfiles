@@ -281,7 +281,7 @@ nnoremap <leader>sr :%s//\=Sum(submatch(0))/g\|echo g:S<home><right><right><righ
 
 
 """ Insert Mode Maps
-inoremap ./ </<C-X><C-O><del>
+inoremap ./ </<C-X><C-O>
 
 " More undo points
 inoremap . .<C-g>u
@@ -313,6 +313,10 @@ inoremap <c-k> <cr>
 
 " next line
 inoremap <c-j> <c-o>o
+
+" HTML tag completion
+inoremap <silent> <C-X><space> <esc>ciW<lt><c-r>"></<c-r>"><esc>F<i
+inoremap <silent> <C-X><cr> <esc>ciW<lt><c-r>"><cr></<c-r>"><esc>O<tab>
 
 """ Visual Mode Maps
 " Copy visual selection to system clipboard. Use v, V, or <c-q> to exit visual

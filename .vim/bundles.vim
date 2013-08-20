@@ -8,7 +8,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " github Bundles
-
 Bundle 'bling/vim-bufferline'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
