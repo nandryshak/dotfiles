@@ -312,7 +312,7 @@ inoremap <c-f> <c-o>x
 inoremap <c-k> <cr>
 
 " next line
-inoremap <c-j> <c-o>o
+inoremap <c-j> <esc>o
 
 " HTML tag completion
 inoremap <silent> <C-X><space> <esc>ciW<lt><c-r>"></<c-r>"><esc>F<i
