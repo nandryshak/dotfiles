@@ -8,7 +8,9 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " github Bundles
-Bundle 'bling/vim-bufferline'
+Bundle 'bling/vim-airline'
+Bundle 'https://github.com/bling/vim-bufferline'
+Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-fugitive'

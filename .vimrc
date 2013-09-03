@@ -338,6 +338,12 @@ command! -range=% SoftWrap
 
 " Plugin Maps and Options
 
+" Airline
+let g:airline_powerline_fonts = 1
+
+" Bufferline
+let g:bufferline_echo = 0
+
 " TextObjColumn remaps. The default's conflict with comment objects
 let g:skip_default_textobj_word_column_mappings = 1
 xnoremap <silent> av :<C-U>call TextObjWordBasedColumn("aw")<CR>
