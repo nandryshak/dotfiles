@@ -1,9 +1,9 @@
-" Cheat Sheet 
+" Cheat Sheet
 " How am I supposed to remember every vim command
 "
 " Vimdiff
 " do    get changes
-" dp    put changes 
+" dp    put changes
 " ]c    next change
 " [c    prev change
 "
@@ -63,11 +63,10 @@ set history=1000
 set linebreak
 set textwidth=0
 set nostartofline
+set backupdir=~/.vim/backups
 
 " For use with `man`
 let $PAGER=''
-
-set backupdir=~/.vim/backups
 
 " Persistent Undo
 set undofile
@@ -130,24 +129,6 @@ nnoremap a? m`A?<esc>``
 nnoremap a0 m`A)<esc>``
 nnoremap a] m`A]<esc>``
 nnoremap a} m`A}<esc>``
-" Add characters after a word.
-nnoremap <c-e>. m`ea.<esc>``
-nnoremap <c-e>, m`ea,<esc>``
-nnoremap <c-e>; m`ea;<esc>``
-nnoremap <c-e>: m`ea:<esc>``
-nnoremap <c-e><space> m`ea<space><esc>``
-nnoremap <c-e><cr> m`ea<cr><esc>``
-nnoremap <c-e>= ea<space>=<space>
-nnoremap <c-e>\ m`ea\|<esc>``
-" Add characters before a word
-nnoremap <c-b>. m`bi.<esc>``l
-nnoremap <c-b>, m`bi,<esc>``l
-nnoremap <c-b>; m`bi;<esc>``l
-nnoremap <c-b>: m`bi:<esc>``l
-nnoremap <c-b><space> m`bi<space><esc>``l
-nnoremap <c-b><cr> m`bi<cr><esc>``l
-nnoremap <c-b>= bi<space>=<space><esc>``l
-nnoremap <c-b>\ m`bi\|<esc>``l
 
 " Calls Tidy
 nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
@@ -181,7 +162,7 @@ nnoremap <silent> <C-Tab> :silent! Bclose<CR>
 " FIXME in terminal
 nnoremap <silent> <c-s-tab> :silent! Bdel!<CR>
 
-" resize current buffer by +/- 5 
+" resize current buffer by +/- 5
 " FIXME These all broken in terminal. A darn shame.
 nnoremap <S-left> :vertical resize -5<cr>
 nnoremap <S-down> :resize +5<cr>
@@ -268,7 +249,7 @@ nnoremap <leader>ue :e ~/.vim/bundle/ultisnips/UltiSnips/
 nnoremap <leader>a/ :Tab/^[^\/]*\zs\//l1l0<cr>
 
 " make and run
-nnoremap <leader>m :make %:r\|copen<cr>:!%:r
+nnoremap <leader>ma :update<cr>:make %:r\|copen<cr><c-w>w:!%:r
 
 " Spell check
 nnoremap \s ea<C-X><C-S>
@@ -279,6 +260,8 @@ nnoremap <leader>sf :%s/\d\+/\=Sum(submatch(0))/g<cr>:echo g:S<cr>
 " Sum regex numbers
 nnoremap <leader>sr :%s//\=Sum(submatch(0))/g\|echo g:S<home><right><right><right>
 
+" Replace stupid quotes
+nnoremap <leader>qr :%s/[“”]/"/g\|%s/[‘’]/'/g<cr>
 
 """ Insert Mode Maps
 inoremap ./ </<C-X><C-O>
@@ -291,7 +274,7 @@ inoremap : :<C-g>u
 inoremap ; ;<C-g>u
 
 " Add semi-colon to EOL
-inoremap <c-l> <esc>m`A;<esc>``a
+" inoremap <c-l> <esc>m`A;<esc>``a
 
 " Goto EOL
 inoremap <c-a> <c-o>A
@@ -338,14 +321,17 @@ cnoremap <m-b> <c-left>
 ca Set set
 ca W w
 ca Q q
+ca Qa qa
 ca Wq wq
 ca Wqa wqa
+ca Read read
+ca R r
 ca q1 q!
 ca %S %s
 ca Cd cd
 ca E e
 
-" Commands 
+" Commands
 command! -range=% SoftWrap
             \ <line2>put _ |
             \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
@@ -408,7 +394,7 @@ vnoremap <leader>rli :normal yss<li><cr>
 " wrap div class
 vnoremap <leader>rd S<lt>div class=""<left>
 
-" Syntastic 
+" Syntastic
 let g:syntastic_python_checkers = ['pyflakes']
 let g:syntastic_mode_map = { 'mode': 'passive' }
 
@@ -440,11 +426,19 @@ endif
 
 autocmd VimResized * :wincmd =
 
+hi TrailingWhitespace ctermbg=red guibg=red
 augroup cline
     au!
     au WinLeave,InsertEnter * set nocursorline
+    au WinLeave,InsertEnter * hi TrailingWhitespace NONE
     au WinEnter,InsertLeave * set cursorline
+    au WinEnter,InsertLeave * hi TrailingWhitespace ctermbg=red guibg=red
 augroup END
+
+" Highlight trailing whitespace
+match TrailingWhitespace /\S\zs\s\+$/
+" Delete trailing whitespace
+nnoremap <leader>sp :%s/\s\+$//<cr>
 
 " tpope's OpenURL function
 function! OpenURL(url)
