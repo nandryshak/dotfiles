@@ -263,6 +263,9 @@ nnoremap <leader>sr :%s//\=Sum(submatch(0))/g\|echo g:S<home><right><right><righ
 " Replace stupid quotes
 nnoremap <leader>qr :%s/[“”]/"/g\|%s/[‘’]/'/g<cr>
 
+" Do Maths
+nnoremap <leader>dm :DoMaths<cr>
+
 """ Insert Mode Maps
 inoremap ./ </<C-X><C-O>
 
@@ -332,9 +335,14 @@ ca Cd cd
 ca E e
 
 " Commands
+" SoftWrap text after using hard wrap.
 command! -range=% SoftWrap
             \ <line2>put _ |
-            \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
+            \ <line1>,<line2>g/^/ .;-/^$/ join |normal $x
+
+" does maths
+command! DoMaths
+            \ .g/\./s/^/scale=2; / | exec '.!bc' | norm <c-l>
 
 " Plugin Maps and Options
 
