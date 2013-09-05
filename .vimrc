@@ -338,11 +338,16 @@ ca E e
 " SoftWrap text after using hard wrap.
 command! -range=% SoftWrap
             \ <line2>put _ |
-            \ <line1>,<line2>g/^/ .;-/^$/ join |normal $x
+            \ <line1>,<line2>g/^/ .;-/^$/ join |normal $x |
+            \ g/^/norm o |
+            \ %s/\s\+$//
 
 " does maths
 command! DoMaths
-            \ .g/\./s/^/scale=2; / | exec '.!bc' | norm <c-l>
+            \ exec '.g/\./s/^/scale=2; /' | exec '.!bc' | norm <c-l>
+" Shows answer for maths
+command! DoMathsVerbose
+            \ .y | exec '.g/\./s/^/scale=2; /' | exec '.!bc' | norm <c-l>I<c-r>"= <esc>0
 
 " Plugin Maps and Options
 
@@ -452,7 +457,7 @@ augroup END
 " Highlight trailing whitespace
 match TrailingWhitespace /\S\zs\s\+$/
 " Delete trailing whitespace
-nnoremap <leader>sp :%s/\s\+$//<cr>
+nnoremap <leader>sp :%s/\s\+$//<cr>/dwjqiodw<cr>gg
 
 " tpope's OpenURL function
 function! OpenURL(url)
