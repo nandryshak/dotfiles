@@ -98,9 +98,6 @@ nnoremap x "_x
 " to change terminal settings for it to work.
 nnoremap <c-v> "+P
 
-" Splits an html and css file nicely
-nnoremap <Leader>vs :vs<CR>:bnext<CR><c-w><c-w>:vert resize 100<CR>
-
 " Adds a new line below/above current
 nnoremap <cr> o<esc>
 nnoremap <s-cr> O<esc>
@@ -136,9 +133,6 @@ nnoremap <leader>zx :silent %!tidy --show-body-only no --indent auto --indent-sp
 
 " Togggle set wrap
 nnoremap <Leader>w :set wrap!<CR>
-
-" Isolate a line
-nnoremap <leader><space><space> O<c-o>j<c-o>o<c-o>k<esc>
 
 " BundleClean/Install
 nnoremap <leader>bc :w <bar> so % <bar> BundleClean<CR>
@@ -189,9 +183,6 @@ nnoremap <leader>ss :w <bar> so %<cr>
 " Quick search and replace
 nnoremap ? :%s/<c-r>///g<left><left>
 vnoremap ? :s/<c-r>///g<left><left>
-
-" Open Syntastic errors
-nnoremap <leader>er :Errors<CR>
 
 " Copen
 nnoremap <leader>co :copen<cr>
@@ -265,9 +256,11 @@ nnoremap <leader>qr :%s/[“”]/"/g\|%s/[‘’]/'/g<cr>
 
 " Do Maths
 nnoremap <leader>dm :DoMaths<cr>
+nnoremap <leader>d= :DoMathsVerbose<cr>
 
 """ Insert Mode Maps
-inoremap ./ </<C-X><C-O>
+" vars
+inoremap <c-x>= =<space>;<left>
 
 " More undo points
 inoremap . .<C-g>u
@@ -299,6 +292,9 @@ inoremap <c-k> <cr>
 
 " next line
 inoremap <c-j> <esc>o
+
+" Tag completion
+inoremap ./ </<C-X><C-O>
 
 " HTML tag completion
 inoremap <silent> <C-X><space> <esc>ciW<lt><c-r>"></<c-r>"><esc>F<i
@@ -457,7 +453,7 @@ augroup END
 " Highlight trailing whitespace
 match TrailingWhitespace /\S\zs\s\+$/
 " Delete trailing whitespace
-nnoremap <leader>sp :%s/\s\+$//<cr>/dwjqiodw<cr>gg
+nnoremap <leader>sp :%s/\s\+$//<cr>/dwjqiodw<cr>gg<c-l>
 
 " tpope's OpenURL function
 function! OpenURL(url)
