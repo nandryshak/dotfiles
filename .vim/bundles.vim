@@ -9,7 +9,7 @@ Bundle 'gmarik/vundle'
 
 " github Bundles
 Bundle 'bling/vim-airline'
-Bundle 'https://github.com/bling/vim-bufferline'
+Bundle 'bling/vim-bufferline'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
