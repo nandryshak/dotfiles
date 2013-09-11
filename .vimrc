@@ -271,6 +271,7 @@ inoremap ; ;<C-g>u
 
 " Add semi-colon to EOL
 " inoremap <c-l> <esc>m`A;<esc>``a
+inoremap <c-l> <C-o>m`<C-o>A;<C-o>``
 
 " Goto EOL
 inoremap <c-a> <c-o>A
@@ -294,7 +295,7 @@ inoremap <c-k> <cr>
 inoremap <c-j> <esc>o
 
 " Tag completion
-inoremap ./ </<C-X><C-O>
+inoremap </ </<C-X><C-O>
 
 " HTML tag completion
 inoremap <silent> <C-X><space> <esc>ciW<lt><c-r>"></<c-r>"><esc>F<i
