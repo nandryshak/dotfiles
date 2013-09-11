@@ -11,7 +11,6 @@ Bundle 'gmarik/vundle'
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
 Bundle 'majutsushi/tagbar'
-Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-fugitive'
 Bundle 'dahu/SearchParty'
@@ -24,11 +23,6 @@ Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'kshenoy/vim-signature'
 Bundle 'Raimondi/delimitMate'
-Bundle 'nandryshak/Fashion.vim'
-
-" Ruby
-Bundle 'tpope/vim-rails'
-Bundle 'vim-ruby/vim-ruby'
 
 " Python
 Bundle 'davidhalter/jedi-vim'
