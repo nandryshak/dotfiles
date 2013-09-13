@@ -258,6 +258,9 @@ nnoremap <leader>qr :%s/[“”]/"/g\|%s/[‘’]/'/g<cr>
 nnoremap <leader>dm :DoMaths<cr>
 nnoremap <leader>d= :DoMathsVerbose<cr>
 
+" Run ctags
+nnoremap <leader>ct :silent !ctags -R<cr>
+
 """ Insert Mode Maps
 " vars
 inoremap <c-x>= =<space>;<left>
@@ -387,10 +390,12 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Ctrlp Options
+let g:ctrlp_mruf_excluse = '*.csv'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = '1r'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = '*.dat'
+let g:ctrlp_extensions = ['tag', 'line']
 
 " SuperTab Options
 let g:SuperTabDefaultCompletionType = "context"
