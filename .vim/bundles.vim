@@ -23,6 +23,8 @@ Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'kshenoy/vim-signature'
 Bundle 'Raimondi/delimitMate'
+Bundle 'mileszs/ack.vim'
+Bundle 'nandryshak/vim-extended-ft'
 
 " Python
 Bundle 'davidhalter/jedi-vim'
