@@ -261,6 +261,9 @@ nnoremap <leader>d= :DoMathsVerbose<cr>
 " Run ctags
 nnoremap <leader>ct :silent !ctags -R<cr>
 
+" Isolate line
+nnoremap <leader><space><space> ddO<cr><esc>P
+
 """ Insert Mode Maps
 " vars
 inoremap <c-x>= =<space>;<left>
@@ -350,6 +353,8 @@ command! DoMathsVerbose
             \ .y | exec '.g/\./s/^/scale=2; /' | exec '.!bc' | norm <c-l>I<c-r>"= <esc>0
 
 " Plugin Maps and Options
+" extended-ft
+let g:ExtendedFT_caseOption = '\C'
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -454,12 +459,11 @@ augroup cline
     au WinLeave,InsertEnter * hi TrailingWhitespace NONE
     au WinEnter,InsertLeave * set cursorline
     au WinEnter,InsertLeave * hi TrailingWhitespace ctermbg=red guibg=red
+    au BufWritePre * :%s/\s\+$//e|norm ``
 augroup END
 
 " Highlight trailing whitespace
 match TrailingWhitespace /\S\zs\s\+$/
-" Delete trailing whitespace
-nnoremap <leader>sp :%s/\s\+$//<cr>/dwjqiodw<cr>gg<c-l>
 
 " tpope's OpenURL function
 function! OpenURL(url)
