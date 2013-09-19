@@ -307,6 +307,9 @@ inoremap </ </<C-X><C-O>
 inoremap <silent> <C-X><space> <esc>ciW<lt><c-r>"></<c-r>"><esc>F<i
 inoremap <silent> <C-X><cr> <esc>ciW<lt><c-r>"><cr></<c-r>"><esc>O<tab>
 
+" Do maths
+inoremap <c-e> <esc>:DoMathsVerbose<cr>A
+
 """ Visual Mode Maps
 " Copy visual selection to system clipboard. Use v, V, or <c-q> to exit visual
 " mode without copying.
@@ -350,7 +353,10 @@ command! DoMaths
             \ exec '.g/\./s/^/scale=2; /' | exec '.!bc' | norm <c-l>
 " Shows answer for maths
 command! DoMathsVerbose
-            \ .y | exec '.g/\./s/^/scale=2; /' | exec '.!bc' | norm <c-l>I<c-r>"= <esc>0
+            \ .y |
+            \ exec '.g/\./s/^/scale=2; /' |
+            \ exec '.!bc' |
+            \ exec 'norm <c-l>I<c-r>0 = <esc>kJ$vB"+y0'
 
 " Plugin Maps and Options
 " extended-ft
@@ -459,7 +465,7 @@ augroup cline
     au WinLeave,InsertEnter * hi TrailingWhitespace NONE
     au WinEnter,InsertLeave * set cursorline
     au WinEnter,InsertLeave * hi TrailingWhitespace ctermbg=red guibg=red
-    au BufWritePre * :%s/\s\+$//e|norm ``
+    au BufWritePre * :%s/\s\+$//e|silent! exec 'norm ``'
 augroup END
 
 " Highlight trailing whitespace
