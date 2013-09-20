@@ -144,7 +144,7 @@ if has("win32")
 else
     nnoremap <Leader>ev :vsplit ~/dotfiles/.vimrc<CR><C-w>L
 endif
-nnoremap <Leader>sv :w<CR>:so %<CR>:bdel<CR>
+nnoremap <Leader>sv :w <bar> so %<CR>:bdel<CR>
 
 " Buffer Maps
 nnoremap <Tab> :bn<CR>
@@ -251,8 +251,8 @@ nnoremap <leader>sf :%s/\d\+/\=Sum(submatch(0))/g<cr>:echo g:S<cr>
 " Sum regex numbers
 nnoremap <leader>sr :%s//\=Sum(submatch(0))/g\|echo g:S<home><right><right><right>
 
-" Replace stupid quotes
-nnoremap <leader>qr :%s/[“”]/"/g\|%s/[‘’]/'/g<cr>
+" Replace stupid quotes and TM and R signs
+nnoremap <leader>qr :%s/[“”]/"/ge\|%s/[‘’]/'/ge\|%s/®/\&reg;/ge\|%s/™/\&trade;/ge\|%s/\s\+&\s\+/ \&amp; /ge<cr>
 
 " Do Maths
 nnoremap <leader>dm :DoMaths<cr>
@@ -465,11 +465,23 @@ augroup cline
     au WinLeave,InsertEnter * hi TrailingWhitespace NONE
     au WinEnter,InsertLeave * set cursorline
     au WinEnter,InsertLeave * hi TrailingWhitespace ctermbg=red guibg=red
-    au BufWritePre * :%s/\s\+$//e|silent! exec 'norm ``'
+    " au BufWritePre * :silent! %s/\s\+$//e | norm ``
 augroup END
 
 " Highlight trailing whitespace
 match TrailingWhitespace /\S\zs\s\+$/
+
+function! DelTrailWhitesp()
+    redir => l:gOutput
+    silent! g/\S\zs\s\+$/
+    redir END
+    let g:FuncOutput = strpart(l:gOutput, 1, 7)
+    if (g:FuncOutput != "Pattern")
+        silent! exec 'silent! %s/\s\+$//e'
+        exe "norm \<c-o>"
+    endif
+endfunction
+command! -nargs=0 DelTrailWhitesp :call DelTrailWhitesp()
 
 " tpope's OpenURL function
 function! OpenURL(url)
