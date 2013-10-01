@@ -26,6 +26,11 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'mileszs/ack.vim'
 Bundle 'nandryshak/vim-extended-ft'
 
+" xolox
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-shell'
+Bundle 'xolox/vim-easytags'
+
 " Python
 Bundle 'davidhalter/jedi-vim'
 

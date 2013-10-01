@@ -264,6 +264,9 @@ nnoremap <leader>ct :silent !ctags -R<cr>
 " Isolate line
 nnoremap <leader><space><space> ddO<cr><esc>P
 
+" Open buffer directory in explorer
+nnoremap <leader>ep :silent !explorer.exe %:p:h<cr>
+
 """ Insert Mode Maps
 " vars
 inoremap <c-x>= =<space>;<left>
@@ -433,8 +436,6 @@ let g:syntastic_mode_map = { 'mode': 'passive' }
 " autocmds
 augroup PROSE
     autocmd BufRead,BufNewFile *.md set ft=markdown
-    autocmd BufRead,BufNewFile *.md setlocal textwidth=74
-    autocmd BufRead,BufNewFile *.md set formatoptions=t1
 augroup END
 augroup bufenters
     au!
@@ -465,7 +466,7 @@ augroup cline
     au WinLeave,InsertEnter * hi TrailingWhitespace NONE
     au WinEnter,InsertLeave * set cursorline
     au WinEnter,InsertLeave * hi TrailingWhitespace ctermbg=red guibg=red
-    " au BufWritePre * :silent! %s/\s\+$//e | norm ``
+    au BufWritePre * :silent! %s/\s\+$//e | norm ``
 augroup END
 
 " Highlight trailing whitespace
