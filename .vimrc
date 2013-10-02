@@ -466,7 +466,7 @@ augroup cline
     au WinLeave,InsertEnter * hi TrailingWhitespace NONE
     au WinEnter,InsertLeave * set cursorline
     au WinEnter,InsertLeave * hi TrailingWhitespace ctermbg=red guibg=red
-    au BufWritePre * :silent! %s/\s\+$//e | norm ``
+    au BufWritePre * :silent! %s/\s\+$//e | silent! norm ``
 augroup END
 
 " Highlight trailing whitespace
