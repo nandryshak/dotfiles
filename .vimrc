@@ -362,18 +362,22 @@ command! DoMathsVerbose
             \ exec 'norm <c-l>I<c-r>0 = <esc>kJ$vB"+y0'
 
 " Plugin Maps and Options
-"
+
 " auto pairs
-let g:AutoPairs = {'(':')', '[':']', '{':'}', "'":"'", '"':'"', '`':'`', '<':'>', '|':'|'}
+let g:AutoPairs = {'(':')', '[':']', '{':'}', "'":"'", '"':'"', '`':'`',  '|':'|'}
 let g:AutoPairsFlyMode = 1
 
-" neocomplete
+" Neocomplete
 let g:neocomplete#enable_at_startup = 1
 " use smartcase
-let g:neocomplete#enable_smart_care = 1
+let g:neocomplete#enable_smart_case = 1
 " set minumum syntax keyword length
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" autocomplpop like behavior
+let g:neocomplete#enable_auto_select = 0
+let g:neocomplete#enable_auto_delimiter = 1
+let g:neocomplete#enable_prefetch = 1
 " Define dictionary
 let g:neocomplete#sources#dictionary#dictionaries = {
             \ 'default' : '',
@@ -384,33 +388,23 @@ if !exists('g:neocomplete#keyword_patterns')
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 " Plugin keymappings
-" inoremap <expr><c-> neocomplete#undo_completion()
-" inoremap <expr><c->
-" Recommended key-mappings
-" <CR>: Close popup and save indent
 inoremap <silent> <cr> <c-r>=<SID>my_cr_function()<cr>
 function! s:my_cr_function()
     return neocomplete#smart_close_popup() . "\<cr>"
-    " for no inserting <cr> key
-    " return pumvisible() ? neocomplete#close_popup() : "\<cr>"
 endfunction
-" <TAB>: completion
-inoremap <expr><tab> neocomplete#close_popup()
-" c-h, bs, close popup and delete backward char
 inoremap <expr><c-h> neocomplete#smart_close_popup() . "\<c-h>"
 inoremap <expr><bs> neocomplete#smart_close_popup() . "\<c-h>"
-" inoremap <expr><c-y> neocomplete#close_popup()
-inoremap <c-y> <c-y>
-" inoremap <expr><c-c> neocomplete#cancel_popup()
-" close popup by <space>
-" inoremap <expr><space> pumvisible() ? neocomplete#close_popup() : "\<space>"
+inoremap <expr><space> neocomplete#smart_close_popup()
+" NeoSnippets
+" SuperTab like snippets behavior.
+inoremap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)"
+    \ : pumvisible() ? "\<c-n>" : "\<TAB>"
+inoremap <s-tab> <c-p>
 
-" autocomplpop like behavior
-let g:neocomplete#enable_auto_select = 1
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd Filetype html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-
 
 " extended-ft
 let g:ExtendedFT_caseOption = '\C'
