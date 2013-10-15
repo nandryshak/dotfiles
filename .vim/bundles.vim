@@ -22,6 +22,7 @@ Bundle 'kshenoy/vim-signature'
 Bundle 'mileszs/ack.vim'
 Bundle 'nandryshak/vim-extended-ft'
 Bundle 'Shougo/neocomplete.vim'
+Bundle 'Shougo/neosnippet.vim'
 Bundle 'jiangmiao/auto-pairs'
 
 " xolox
@@ -30,7 +31,7 @@ Bundle 'xolox/vim-shell'
 Bundle 'xolox/vim-easytags'
 
 " Python
-Bundle 'davidhalter/jedi-vim'
+" Bundle 'davidhalter/jedi-vim'
 
 " Markdown
 Bundle 'tpope/vim-markdown'
