@@ -50,6 +50,7 @@ set ts=4 sts=4 sw=4 et " sane tab settings
 set laststatus=2       " always have a status line
 set sc                 " show commands in the status line as you type them
 set cindent
+set autoindent
 set encoding=utf-8
 set backupcopy=yes
 set ignorecase
@@ -88,8 +89,8 @@ nnoremap <C-h> ^
 nnoremap <C-k> -
 nnoremap <C-j> <C-m>
 
-" Stops me from entering ex mode on accident. I don't use it anyway.
-nnoremap Q <nop>
+" mathssss
+nnoremap Q 0yt=A<space><C-r>=<C-r>"<CR><Esc>vT=l"+y$
 
 " Prevents character deletes from going into a register (_ is a blackhole)
 nnoremap x "_x
@@ -241,6 +242,8 @@ nnoremap <leader>a/ :Tab/^[^\/]*\zs\//l1l0<cr>
 
 " make and run
 nnoremap <leader>ma :update<cr>:make %:r\|copen<cr><c-w>w:!%:r
+" for D
+nnoremap <leader>md :up \| silent! !dmd %<cr>:copen<cr><c-w>w:!%:r
 
 " Spell check
 nnoremap \s ea<C-X><C-S>
@@ -279,8 +282,8 @@ inoremap : :<C-g>u
 inoremap ; ;<C-g>u
 
 " Add semi-colon to EOL
-" inoremap <c-l> <esc>m`A;<esc>``a
 inoremap <c-l> <C-o>m`<C-o>A;<C-o>``
+inoremap jj <esc>m`A;<esc>``
 
 " Goto EOL
 inoremap <c-a> <c-o>A
@@ -297,14 +300,11 @@ inoremap <c-c> <c-r>+
 " extra del key
 inoremap <c-f> <c-o>x
 
-" split a line at cursor
-inoremap <c-k> <cr>
-
 " next line
 inoremap <c-j> <esc>o
 
 " Tag completion
-inoremap </ </<C-X><C-O>
+" inoremap </ </<C-X><C-O>
 
 " HTML tag completion
 inoremap <silent> <C-X><space> <esc>ciW<lt><c-r>"></<c-r>"><esc>F<i
@@ -312,6 +312,9 @@ inoremap <silent> <C-X><cr> <esc>ciW<lt><c-r>"><cr></<c-r>"><esc>O<tab>
 
 " Do maths
 inoremap <c-e> <esc>:DoMathsVerbose<cr>A
+
+" expand tags until snippet is fixed
+inoremap <c-l> <cr><esc>O
 
 """ Visual Mode Maps
 " Copy visual selection to system clipboard. Use v, V, or <c-q> to exit visual
@@ -362,7 +365,8 @@ command! DoMathsVerbose
             \ exec 'norm <c-l>I<c-r>0 = <esc>kJ$vB"+y0'
 
 " Plugin Maps and Options
-
+" colorizer
+let g:colorizer_auto_filetype='css,html,javascript'
 " auto pairs
 let g:AutoPairs = {'(':')', '[':']', '{':'}', "'":"'", '"':'"', '`':'`',  '|':'|'}
 let g:AutoPairsFlyMode = 1
@@ -396,15 +400,28 @@ inoremap <expr><c-h> neocomplete#smart_close_popup() . "\<c-h>"
 inoremap <expr><bs> neocomplete#smart_close_popup() . "\<c-h>"
 inoremap <expr><space> neocomplete#smart_close_popup()
 " NeoSnippets
+let neosnippet#snippets_directory = '~/.vim/bundle/neosnippet.vim/autoload/neosnippet/snippets'
 " SuperTab like snippets behavior.
-inoremap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)"
-    \ : pumvisible() ? "\<c-n>" : "\<TAB>"
+imap <expr><tab> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\ : pumvisible() ? "\<c-n>" : "\<tab>"
+smap <expr><tab> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\ : pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <s-tab> <c-p>
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd Filetype html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+" multicursors
+let g:multi_cursor_next_key='<c-k>'
+let g:multi_cursor_prev_key='<c-p>'
+let g:multi_cursor_skip_key='<c-x>'
+let g:multi_cursor_quit_key='<c-q>'
 
 " extended-ft
 let g:ExtendedFT_caseOption = '\C'
