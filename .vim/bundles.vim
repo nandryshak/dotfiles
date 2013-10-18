@@ -24,6 +24,7 @@ Bundle 'nandryshak/vim-extended-ft'
 Bundle 'Shougo/neocomplete.vim'
 Bundle 'Shougo/neosnippet.vim'
 Bundle 'jiangmiao/auto-pairs'
+Bundle 'terryma/vim-multiple-cursors'
 
 " xolox
 Bundle 'xolox/vim-misc'
@@ -37,10 +38,11 @@ Bundle 'xolox/vim-easytags'
 Bundle 'tpope/vim-markdown'
 
 " Webdev
-Bundle 'skammer/vim-css-color'
+" Bundle 'ap/vim-css-color'
 Bundle 'gregsexton/MatchTag'
 Bundle 'maksimr/vim-jsbeautify'
 Bundle 'tsaleh/vim-matchit'
+Bundle 'chrisbra/color_highlight'
 
 " Text objects
 Bundle 'michaeljsmith/vim-indent-object'
@@ -53,6 +55,7 @@ Bundle 'glts/vim-textobj-comment'
 
 " The Only Colorscheme
 Bundle 'tomasr/molokai'
+Bundle 'junegunn/seoul256.vim'
 
 " vim script Bundles
 Bundle 'scratch.vim'
