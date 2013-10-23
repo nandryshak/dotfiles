@@ -65,6 +65,7 @@ set linebreak
 set textwidth=0
 set nostartofline
 set backupdir=~/.vim/backups
+set listchars=tab:→\   | set list
 
 " For use with `man`
 let $PAGER=''
@@ -224,6 +225,9 @@ nnoremap <leader>tp :%s/,\s\+/,/g<cr>
 nnoremap <leader>jx :call JsBeautify()<cr>
 nnoremap <leader>hx :call HtmlBeautify()<cr>
 nnoremap <leader>cx :call CSSBeautify()<cr>
+vnoremap <leader>jx :call JsBeautify("'<","'>")<cr>
+vnoremap <leader>hx :call HtmlBeautify("'<","'>")<cr>
+vnoremap <leader>cx :call CSSBeautify("'<","'>")<cr>
 
 " Copy buffer to system clipboard
 nnoremap <c-c> :%y +<cr>
@@ -269,6 +273,9 @@ nnoremap <leader><space><space> ddO<cr><esc>P
 
 " Open buffer directory in explorer
 nnoremap <leader>ep :silent !explorer.exe %:p:h<cr>
+
+" open snippets
+nnoremap <leader>ne :NeoSnippetEdit<cr>
 
 """ Insert Mode Maps
 " vars
@@ -526,20 +533,15 @@ augroup cline
     au WinLeave,InsertEnter * hi TrailingWhitespace NONE
     au WinEnter,InsertLeave * set cursorline
     au WinEnter,InsertLeave * hi TrailingWhitespace ctermbg=red guibg=red
-    au BufWritePre * :silent! %s/\s\+$//e | silent! norm ``
+    au BufWritePre * DelTrailWhitesp
 augroup END
 
 " Highlight trailing whitespace
 match TrailingWhitespace /\S\zs\s\+$/
 
 function! DelTrailWhitesp()
-    redir => l:gOutput
-    silent! g/\S\zs\s\+$/
-    redir END
-    let g:FuncOutput = strpart(l:gOutput, 1, 7)
-    if (g:FuncOutput != "Pattern")
-        silent! exec 'silent! %s/\s\+$//e'
-        exe "norm \<c-o>"
+    if search('\s\+$', 'np')
+        silent! %s/\s\+$//e | silent! norm ``zz
     endif
 endfunction
 command! -nargs=0 DelTrailWhitesp :call DelTrailWhitesp()
