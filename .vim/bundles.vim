@@ -7,7 +7,6 @@ Bundle 'gmarik/vundle'
 " github Bundles
 Bundle 'bling/vim-airline'
 Bundle 'bling/vim-bufferline'
-Bundle 'majutsushi/tagbar'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-fugitive'
 Bundle 'dahu/SearchParty'
@@ -25,11 +24,12 @@ Bundle 'Shougo/neocomplete.vim'
 Bundle 'Shougo/neosnippet.vim'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'terryma/vim-multiple-cursors'
+Bundle 'junegunn/vim-easy-align'
 
 " xolox
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-shell'
-Bundle 'xolox/vim-easytags'
+" Bundle 'xolox/vim-easytags'
 
 " Python
 " Bundle 'davidhalter/jedi-vim'
@@ -55,7 +55,6 @@ Bundle 'glts/vim-textobj-comment'
 
 " The Only Colorscheme
 Bundle 'tomasr/molokai'
-Bundle 'junegunn/seoul256.vim'
 
 " vim script Bundles
 Bundle 'scratch.vim'
