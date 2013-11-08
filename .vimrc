@@ -272,10 +272,13 @@ nnoremap <leader>ct :silent !ctags -R<cr>
 nnoremap <leader><space><space> ddO<cr><esc>P
 
 " Open buffer directory in explorer
-nnoremap <leader>ep :silent !explorer.exe %:p:h<cr>
+nnoremap <leader>oe :silent !explorer.exe %:p:h<cr>
 
 " open snippets
-nnoremap <leader>ne :NeoSnippetEdit<cr>
+nnoremap <leader>ne :vsp \| NeoSnippetEdit<cr>
+
+" bdelete
+nnoremap <leader>bd :bd!<cr>
 
 """ Insert Mode Maps
 " vars
@@ -320,13 +323,13 @@ inoremap <silent> <C-X><cr> <esc>ciW<lt><c-r>"><cr></<c-r>"><esc>O<tab>
 " Do maths
 inoremap <c-e> <esc>:DoMathsVerbose<cr>A
 
-" expand tags until snippet is fixed
-inoremap <c-l> <cr><esc>O
-
 """ Visual Mode Maps
 " Copy visual selection to system clipboard. Use v, V, or <c-q> to exit visual
 " mode without copying.
 vnoremap <c-c> "+y
+
+" Easyalaign
+vnoremap <cr> :LiveEasyAlign<cr>
 
 " Command Mode maps
 " Heresy.
@@ -439,6 +442,10 @@ let g:airline_powerline_fonts = 1
 " Bufferline
 let g:bufferline_echo = 0
 
+" easytags
+let g:easytags_auto_highlight = 0
+let g:easytags_autorecurse = 1
+
 " TextObjColumn remaps. The default's conflict with comment objects
 let g:skip_default_textobj_word_column_mappings = 1
 xnoremap <silent> av :<C-U>call TextObjWordBasedColumn("aw")<CR>
@@ -516,6 +523,7 @@ augroup fts
     autocmd BufRead,BufNewFile *.aspx set ft=html
     autocmd BufRead,BufNewFile *.ashx set ft=cs
     autocmd BufRead,BufNewFile *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+    autocmd FileType python let g:easytags_on_cursorhold = 0
     autocmd BufRead,BufNewFile *.py set nocindent
     autocmd FileType ruby set ts=2 sts=2 sw=2 expandtab
 augroup END
