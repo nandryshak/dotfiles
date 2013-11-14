@@ -10,10 +10,7 @@ Bundle 'bling/vim-bufferline'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'tpope/vim-fugitive'
 Bundle 'dahu/SearchParty'
-" Bundle 'SirVer/ultisnips'
-Bundle 'godlygeek/tabular'
 Bundle 'kien/ctrlp.vim'
-" Bundle 'ervandew/supertab'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'scrooloose/nerdcommenter'
@@ -25,14 +22,8 @@ Bundle 'Shougo/neosnippet.vim'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'junegunn/vim-easy-align'
-
-" xolox
-Bundle 'xolox/vim-misc'
-Bundle 'xolox/vim-shell'
-" Bundle 'xolox/vim-easytags'
-
-" Python
-" Bundle 'davidhalter/jedi-vim'
+Bundle 'arecarn/crunch'
+Bundle 'godlygeek/tabular'
 
 " Markdown
 Bundle 'tpope/vim-markdown'
