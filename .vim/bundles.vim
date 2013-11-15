@@ -24,15 +24,14 @@ Bundle 'terryma/vim-multiple-cursors'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'arecarn/crunch'
 Bundle 'godlygeek/tabular'
+Bundle 'marijnh/tern_for_vim'
 
 " Markdown
 Bundle 'tpope/vim-markdown'
 
 " Webdev
-" Bundle 'ap/vim-css-color'
 Bundle 'gregsexton/MatchTag'
 Bundle 'maksimr/vim-jsbeautify'
-Bundle 'tsaleh/vim-matchit'
 Bundle 'chrisbra/color_highlight'
 
 " Text objects
