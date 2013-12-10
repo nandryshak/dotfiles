@@ -49,6 +49,5 @@ Bundle 'tomasr/molokai'
 
 " vim script Bundles
 Bundle 'scratch.vim'
-Bundle 'SingleCompile'
 
 filetype plugin indent on
