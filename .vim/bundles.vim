@@ -25,6 +25,7 @@ Bundle 'junegunn/vim-easy-align'
 Bundle 'arecarn/crunch'
 Bundle 'godlygeek/tabular'
 Bundle 'marijnh/tern_for_vim'
+Bundle 'jnwhiteh/vim-golang'
 
 " Markdown
 Bundle 'tpope/vim-markdown'
@@ -48,5 +49,6 @@ Bundle 'tomasr/molokai'
 
 " vim script Bundles
 Bundle 'scratch.vim'
+Bundle 'SingleCompile'
 
 filetype plugin indent on
