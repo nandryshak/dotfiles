@@ -65,7 +65,8 @@ set linebreak
 set textwidth=0
 set nostartofline
 set backupdir=~/.vim/backups
-set listchars=tab:→\   | set list
+" set listchars=tab:→\   | set list
+runtime! macros/matchit.vim
 
 " For use with `man`
 let $PAGER=''
