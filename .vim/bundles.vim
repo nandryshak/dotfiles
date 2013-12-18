@@ -22,10 +22,10 @@ Bundle 'Shougo/neosnippet.vim'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'terryma/vim-multiple-cursors'
 Bundle 'junegunn/vim-easy-align'
-Bundle 'arecarn/crunch'
 Bundle 'godlygeek/tabular'
 Bundle 'marijnh/tern_for_vim'
 Bundle 'jnwhiteh/vim-golang'
+Bundle 'arecarn/crunch'
 
 " Markdown
 Bundle 'tpope/vim-markdown'

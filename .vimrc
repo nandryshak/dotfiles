@@ -27,6 +27,7 @@ endif
 
 " Can't live without these
 set number
+set relativenumber
 syntax on
 " Sets colorscheme. Always use molokai unless you're in a terminal on Windows
 " (no 256 colors on Windows term)
@@ -131,8 +132,9 @@ nnoremap a] m`A]<esc>``
 nnoremap a} m`A}<esc>``
 
 " Calls Tidy
-nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
-nnoremap <leader>zx :silent %!tidy --show-body-only no --indent auto --indent-spaces 4 --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
+" nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
+" nnoremap <leader>zx :silent %!tidy --show-body-only no --indent auto --indent-spaces 4 --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
+nnoremap <leader>x :silent %! tidy --vertical-space no --doctype omit --output-html yes --wrap 0 --show-errors 0 --show-body-only auto --indent auto --indent-spaces 4 -q -i<cr><cr>:silent! %s/<\/li>\zs\n\ze\s*\n\s*<li>//g<cr>
 
 " Togggle set wrap
 nnoremap <Leader>w :set wrap!<CR>
@@ -429,7 +431,7 @@ autocmd Filetype html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 " multicursors
-let g:multi_cursor_next_key='<c-k>'
+let g:multi_cursor_next_key='<c-n>'
 let g:multi_cursor_prev_key='<c-p>'
 let g:multi_cursor_skip_key='<c-x>'
 let g:multi_cursor_quit_key='<c-q>'
