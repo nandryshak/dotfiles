@@ -68,6 +68,8 @@ set nostartofline
 set backupdir=~/.vim/backups
 " set listchars=tab:→\   | set list
 runtime! macros/matchit.vim
+highlight ColorColumn guibg=#293739
+set colorcolumn=81
 
 " For use with `man`
 let $PAGER=''
@@ -283,6 +285,11 @@ nnoremap <leader>ne :vsp \| NeoSnippetEdit<cr>
 " bdelete
 nnoremap <leader>bd :bd!<cr>
 
+" HLNext
+highlight WhiteOnRed guibg=Red guifg=White
+nnoremap <silent> n n:call HLNext(0.1)<cr>
+nnoremap <silent> N N:call HLNext(0.1)<cr>
+
 """ Insert Mode Maps
 " vars
 inoremap <c-x>= =<space>;<left>
@@ -382,7 +389,6 @@ command! DoMathsVerbose
 let g:colorizer_auto_filetype='css,html,javascript'
 " auto pairs
 let g:AutoPairs = {'(':')', '[':']', '{':'}', "'":"'", '"':'"', '`':'`',  '|':'|'}
-let g:AutoPairsFlyMode = 1
 
 " Neocomplete
 let g:neocomplete#enable_at_startup = 1
@@ -533,6 +539,7 @@ augroup fts
     autocmd BufRead,BufNewFile *.ashx set ft=cs
     autocmd BufRead,BufNewFile *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
     autocmd FileType python let g:easytags_on_cursorhold = 0
+    autocmd FileType python exec 'nnoremap <leader>ma :up<cr>:!python %<cr>'
     autocmd BufRead,BufNewFile *.py set nocindent
     autocmd FileType ruby set ts=2 sts=2 sw=2 expandtab
 augroup END
@@ -579,18 +586,6 @@ command! -nargs=1 OpenURL :call OpenURL(<q-args>)
 nnoremap gb :OpenURL <cfile><CR>
 nnoremap gG :OpenURL http://www.google.com/search?q=<cword><CR>
 nnoremap gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><CR>
-
-function! TwiddleCase(str)
-  if a:str ==# toupper(a:str)
-    let result = tolower(a:str)
-  elseif a:str ==# tolower(a:str)
-    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
-  else
-    let result = toupper(a:str)
-  endif
-  return result
-endfunction
-vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
 " Some number motion thing. Just trying it out. I think I found it on freenode's #vim. Anyway the
 " github is github.com/sjl/dofiles
