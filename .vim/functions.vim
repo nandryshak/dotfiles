@@ -1,5 +1,11 @@
 " Functions file
-"
+
+let g:S = 0
+function! Sum(number)
+    let g:S = g:S + a:number
+    return a:number
+endfunction
+
 function! HLNext(blinktime)
     let [bufnum, lnum, col, off] = getpos('.')
     let matchlen = strlen(matchstr(strpart(getline('.'), col - 1), @/))

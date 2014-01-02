@@ -106,6 +106,7 @@ nnoremap <c-v> "+P
 
 " Adds a new line below/above current
 nnoremap <cr> o<esc>
+" FIXME
 nnoremap <s-cr> O<esc>
 
 " Open buffer in chrome
@@ -120,22 +121,10 @@ noremap <S-Space> :Tab/
 nnoremap <C-space> :vim //g ** \| cw<home><right><right><right><right><right>
 nnoremap <C-S-space> :vim //g % \| cw<home><right><right><right><right><right>
 
-" Add a semicolon, period, etc. to EOL. I should probably make this into a
-" function so it's compatible with any key but I'm lazy.
+" Add a semicolon EOL.
 nnoremap a; m`A;<esc>``
-nnoremap a: m`A:<esc>``
-nnoremap a. m`A.<esc>``
-nnoremap a, m`A,<esc>``
-nnoremap a> m`A><esc>``
-nnoremap a! m`A!<esc>``
-nnoremap a? m`A?<esc>``
-nnoremap a0 m`A)<esc>``
-nnoremap a] m`A]<esc>``
-nnoremap a} m`A}<esc>``
 
 " Calls Tidy
-" nnoremap <leader>x :silent %!tidy --show-body-only yes --indent auto --indent-spaces 4 --doctype omit --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
-" nnoremap <leader>zx :silent %!tidy --show-body-only no --indent auto --indent-spaces 4 --numeric-entities no --break-before-br yes --output-html yes --wrap 0 --show-errors 0 -q -i<CR><CR>
 nnoremap <leader>x :silent %! tidy --vertical-space no --doctype omit --output-html yes --wrap 0 --show-errors 0 --show-body-only auto --indent auto --indent-spaces 4 -q -i<cr><cr>:silent! %s/<\/li>\zs\n\ze\s*\n\s*<li>//g<cr>
 
 " Togggle set wrap
@@ -160,9 +149,6 @@ nnoremap <BS> :bp<CR>
 " FIXME in terminal
 nnoremap <silent> <C-Tab> :silent! Bclose<CR>
 
-" FIXME in terminal
-nnoremap <silent> <c-s-tab> :silent! Bdel!<CR>
-
 " resize current buffer by +/- 5
 " FIXME These all broken in terminal. A darn shame.
 nnoremap <S-left> :vertical resize -5<cr>
@@ -181,18 +167,12 @@ nnoremap <C-Down> ddp
 vnoremap <C-Up> xkP`[V`]
 vnoremap <C-Down> xp`[V`]
 
-" Isolate Visual selection
-vnoremap <leader><space><space> dO<cr><esc>P
-
 " write and source current buffer
 nnoremap <leader>ss :w <bar> so %<cr>
 
 " Quick search and replace
 nnoremap ? :%s/<c-r>///g<left><left>
 vnoremap ? :s/<c-r>///g<left><left>
-
-" Copen
-nnoremap <leader>co :copen<cr>
 
 " Changes windows to the directory of the current buffer
 nnoremap <leader>cd :lcd %:p:h<CR>:cd<CR>
@@ -241,16 +221,13 @@ nnoremap <c-c> :%y +<cr>
 nnoremap K i<cr><esc>
 
 " update buffer
-nnoremap <c-s> :up<cr>
-
-" Edit ultisnips
-nnoremap <leader>ue :e ~/.vim/bundle/ultisnips/UltiSnips/
+nnoremap S :up<cr>
 
 " Align C comments
 nnoremap <leader>a/ :Tab/^[^\/]*\zs\//l1l0<cr>
 
 " make and run
-nnoremap <leader>ma :update<cr>:make %:r\|copen<cr><c-w>w:!%:r
+nnoremap <leader>ma :update<cr>:Make %:r<cr>
 " for D
 nnoremap <leader>md :up \| silent! !dmd %<cr>:copen<cr><c-w>w:!%:r
 
@@ -258,10 +235,10 @@ nnoremap <leader>md :up \| silent! !dmd %<cr>:copen<cr><c-w>w:!%:r
 nnoremap \s ea<C-X><C-S>
 
 " Sum first numbers
-nnoremap <leader>sf :%s/\d\+/\=Sum(submatch(0))/g<cr>:echo g:S<cr>
+nnoremap <leader>sf :silent! %s/\d\+/\=Sum(submatch(0))/g<cr>:echo g:S<cr>
 
 " Sum regex numbers
-nnoremap <leader>sr :%s//\=Sum(submatch(0))/g\|echo g:S<home><right><right><right>
+nnoremap <leader>sr :silent! %s//\=Sum(submatch(0))/g\|echo g:S<home><right><right><right>
 
 " Replace stupid quotes and TM and R signs
 nnoremap <leader>qr :%s/[“”]/"/ge\|%s/[‘’]/'/ge\|%s/®/\&reg;/ge\|%s/™/\&trade;/ge\|%s/\s\+&\s\+/ \&amp; /ge<cr>
@@ -290,9 +267,16 @@ highlight WhiteOnRed guibg=Red guifg=White
 nnoremap <silent> n n:call HLNext(0.1)<cr>
 nnoremap <silent> N N:call HLNext(0.1)<cr>
 
+" Fix the dumbest mapping in Vim
+nnoremap Y y$
+
+" move backward a jump
+nnoremap _ <c-o>
+
+" move forward a jump
+nnoremap + <c-i>
+
 """ Insert Mode Maps
-" vars
-inoremap <c-x>= =<space>;<left>
 
 " More undo points
 inoremap . .<C-g>u
@@ -323,9 +307,6 @@ inoremap <c-f> <c-o>x
 " next line
 inoremap <c-j> <esc>o
 
-" Tag completion
-" inoremap </ </<C-X><C-O>
-
 " HTML tag completion
 inoremap <silent> <C-X><space> <esc>ciW<lt><c-r>"></<c-r>"><esc>F<i
 inoremap <silent> <C-X><cr> <esc>ciW<lt><c-r>"><cr></<c-r>"><esc>O<tab>
@@ -334,6 +315,9 @@ inoremap <silent> <C-X><cr> <esc>ciW<lt><c-r>"><cr></<c-r>"><esc>O<tab>
 inoremap <c-e> <esc>:DoMathsVerbose<cr>A
 
 """ Visual Mode Maps
+" Isolate Visual selection
+vnoremap <leader><space><space> dO<cr><esc>P
+
 " Copy visual selection to system clipboard. Use v, V, or <c-q> to exit visual
 " mode without copying.
 vnoremap <c-c> "+y
@@ -341,7 +325,7 @@ vnoremap <c-c> "+y
 " Easyalaign
 vnoremap <cr> :LiveEasyAlign<cr>
 
-" Command Mode maps
+""" Command Mode maps
 " Heresy.
 cnoremap <C-a> <home>
 cnoremap <C-e> <end>
@@ -351,6 +335,9 @@ cnoremap <c-f> <right>
 cnoremap <c-b> <left>
 cnoremap <m-f> <c-right>
 cnoremap <m-b> <c-left>
+
+" force write a ro file
+cnoremap w!! %!sudo tee > /dev/null %
 
 " Command abbrevs
 ca Set set
@@ -367,12 +354,6 @@ ca Cd cd
 ca E e
 
 " Commands
-" SoftWrap text after using hard wrap.
-command! -range=% SoftWrap
-            \ <line2>put _ |
-            \ <line1>,<line2>g/^/ .;-/^$/ join |normal $x |
-            \ g/^/norm o |
-            \ %s/\s\+$//
 
 " does maths
 command! DoMaths
@@ -527,6 +508,7 @@ let g:syntastic_mode_map = { 'mode': 'passive' }
 augroup PROSE
     autocmd BufRead,BufNewFile *.md set ft=markdown
 augroup END
+
 augroup bufenters
     au!
     autocmd BufEnter * syntax sync fromstart
@@ -548,7 +530,11 @@ if has("win32")
     autocmd VimEnter * :call SetDirectory()
 endif
 
-autocmd VimResized * :wincmd =
+augroup Misc
+    au VimResized * :wincmd =
+    au BufWritePre * DelTrailWhitesp
+    au InsertLeave * set nopaste
+augroup END
 
 hi TrailingWhitespace ctermbg=red guibg=red
 augroup cline
@@ -557,7 +543,6 @@ augroup cline
     au WinLeave,InsertEnter * hi TrailingWhitespace NONE
     au WinEnter,InsertLeave * set cursorline
     au WinEnter,InsertLeave * hi TrailingWhitespace ctermbg=red guibg=red
-    au BufWritePre * DelTrailWhitesp
 augroup END
 
 " Highlight trailing whitespace
