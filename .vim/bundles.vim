@@ -26,6 +26,7 @@ Bundle 'godlygeek/tabular'
 Bundle 'marijnh/tern_for_vim'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'arecarn/crunch'
+Bundle 'tpope/vim-dispatch'
 
 " Markdown
 Bundle 'tpope/vim-markdown'
