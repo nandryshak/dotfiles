@@ -13,10 +13,3 @@ ln ~/dotfiles/.vim/bundles.vim ~/.vim/bundles.vim
 
 # Clones vundle
 # git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-
-# Installs plugins
-vim +BundleInstall +qall
-vim +BundleClean +qall
-
-# Clones snippets
-# git clone https://github.com/nandryshak/UltiSnips.git ~/.vim/bundle/ultisnips/UltiSnips

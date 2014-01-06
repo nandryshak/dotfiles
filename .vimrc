@@ -276,6 +276,9 @@ nnoremap _ <c-o>
 " move forward a jump
 nnoremap + <c-i>
 
+" clear search highlights
+nnoremap <c-l> :nohls<cr><c-l>
+
 """ Insert Mode Maps
 
 " More undo points
@@ -366,6 +369,11 @@ command! DoMathsVerbose
             \ exec 'norm <c-l>I<c-r>0 = <esc>kJ$vB"+y0'
 
 " Plugin Maps and Options
+" sneak
+nnoremap f :Sneak!         1<cr>
+nnoremap F :SneakBackward! 1<cr>
+xnoremap f <esc>:<c-u>SneakV!         1<cr>
+xnoremap F <esc>:<c-u>SneakVBackward! 1<cr>
 " colorizer
 let g:colorizer_auto_filetype='css,html,javascript'
 " auto pairs
@@ -520,10 +528,11 @@ augroup fts
     autocmd BufRead,BufNewFile *.aspx set ft=html
     autocmd BufRead,BufNewFile *.ashx set ft=cs
     autocmd BufRead,BufNewFile *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-    autocmd FileType python let g:easytags_on_cursorhold = 0
-    autocmd FileType python exec 'nnoremap <leader>ma :up<cr>:!python %<cr>'
+    autocmd FileType python exec 'nnoremap <leader>ma :up<cr>:Dispatch python2 %<cr>'
     autocmd BufRead,BufNewFile *.py set nocindent
-    autocmd FileType ruby set ts=2 sts=2 sw=2 expandtab
+    autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType go setlocal makeprg=go\ build\ -o\ %:r.exe\ ./...
+    autocmd FileType go nnoremap <leader>ma :make<cr>:Dispatch %:r<cr>
 augroup END
 
 if has("win32")
