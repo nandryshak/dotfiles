@@ -531,7 +531,7 @@ augroup fts
     autocmd FileType python exec 'nnoremap <leader>ma :up<cr>:Dispatch python2 %<cr>'
     autocmd BufRead,BufNewFile *.py set nocindent
     autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType go setlocal makeprg=go\ build\ -o\ %:r.exe\ ./...
+    autocmd FileType go setlocal makeprg=go\ build\ -o\ %:r.exe\ %
     autocmd FileType go nnoremap <leader>ma :make<cr>:Dispatch %:r<cr>
 augroup END
 
