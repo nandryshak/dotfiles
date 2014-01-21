@@ -95,7 +95,12 @@ nnoremap <C-k> -
 nnoremap <C-j> <C-m>
 
 " mathssss
-nnoremap Q 0yt=A<space><C-r>=<C-r>"<CR><Esc>vT=l"+y$
+" nnoremap Q 0yt=A<space><C-r>=<C-r>"<CR><Esc>vT=l"+y$
+
+" quit buffer
+nnoremap Q :bd<cr>
+" REALLY quit
+nnoremap RQ :bd!<cr>
 
 " Prevents character deletes from going into a register (_ is a blackhole)
 nnoremap x "_x
@@ -277,7 +282,7 @@ nnoremap _ <c-o>
 nnoremap + <c-i>
 
 " clear search highlights
-nnoremap <c-l> :nohls<cr><c-l>
+nnoremap <c-l> :nohl<cr><c-l>
 
 """ Insert Mode Maps
 
@@ -527,6 +532,7 @@ augroup fts
     autocmd BufRead,BufNewFile *.ascx set ft=html
     autocmd BufRead,BufNewFile *.aspx set ft=html
     autocmd BufRead,BufNewFile *.ashx set ft=cs
+    autocmd BufRead,BufNewFile *.aspx syn region Comment start='<%--' end='--%>'
     autocmd BufRead,BufNewFile *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
     autocmd FileType python exec 'nnoremap <leader>ma :up<cr>:Dispatch python2 %<cr>'
     autocmd BufRead,BufNewFile *.py set nocindent
