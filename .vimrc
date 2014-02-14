@@ -37,6 +37,11 @@ if has("win32") && !has("gui_running")
 else
     colorscheme molokai
 endif
+if !has("win32")
+    set t_Co=256
+    silent! colorscheme desert
+    silent! colorscheme ir_black
+endif
 
 let mapleader = "\<space>"
 set nocp               " enable vim features
@@ -180,7 +185,7 @@ nnoremap ? :%s/<c-r>///g<left><left>
 vnoremap ? :s/<c-r>///g<left><left>
 
 " Changes windows to the directory of the current buffer
-nnoremap <leader>cd :lcd %:p:h<CR>:cd<CR>
+nnoremap cd :lcd %:p:h<CR>:cd<CR>
 
 " Add a class/id to the first HTML tag on the line
 nnoremap <leader>ac :silent! s/<\zs\w\+/& class=""/<CR>ci"

@@ -24,7 +24,7 @@ Bundle 'junegunn/vim-easy-align'
 Bundle 'godlygeek/tabular'
 Bundle 'marijnh/tern_for_vim'
 Bundle 'jnwhiteh/vim-golang'
-Bundle 'arecarn/crunch'
+" Bundle 'arecarn/crunch'
 Bundle 'tpope/vim-dispatch'
 Bundle 'justinmk/vim-sneak'
 
@@ -33,14 +33,16 @@ Bundle 'tpope/vim-markdown'
 
 " Webdev
 Bundle 'gregsexton/MatchTag'
-Bundle 'maksimr/vim-jsbeautify'
 Bundle 'chrisbra/color_highlight'
+Bundle 'einars/js-beautify'
+Bundle 'maksimr/vim-jsbeautify'
 
 " Text objects
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'coderifous/textobj-word-column.vim'
 Bundle 'bkad/CamelCaseMotion'
-Bundle 'paradigm/TextObjectify'
+" Bundle 'paradigm/TextObjectify'
+Bundle 'wellle/targets.vim'
 
 Bundle 'kana/vim-textobj-user'
 Bundle 'glts/vim-textobj-comment'
