@@ -1,19 +1,49 @@
 " Cheat Sheet
-" How am I supposed to remember every vim command
 "
-" Vimdiff
-" do    get changes
-" dp    put changes
-" ]c    next change
-" [c    prev change
+" Ack.vim
+" :Ack [options] {pattern} [{directories}]
+" :Ack, :AckAdd, :LAck, :LAckAdd
+" o    to open (same as enter)
+" O    to open and close quickfix window
+" go   to preview file (open but maintain focus on ack.vim results)
+" t    to open in new tab
+" T    to open in new tab silently
+" h    to open in horizontal split
+" H    to open in horizontal split silently
+" v    to open in vertical split
+" gv   to open in vertical split silently
+" q    to close the quickfix window
 "
-" Spell check
-" :set spell
-" ]s    next error
-" [s    prev error
-" zg    add word
-" zug   undo add word
-" z=    view suggestions
+" Vim-dispatch
+"     :Make - background make, auto open quickfix window
+"    :Make! - background make, open quickfix window with :Copen
+" :Dispatch - background task, captures output
+"    :Start - foreground task, doesn't capture output
+"   :Start! - background task, doens't capture output
+"
+" EasyAlign
+" 1) <enter> in visual mode or <leader>a followed by movement to start
+" interactive mode
+" 2) Optional: N-th delimiter (default: 1)
+"   - 1 Around the 1st occurrences of delimiters
+"   - 2 Around the 2nd occurrences of delimiters
+"   - ...
+"   - * Around all occurrences of delimiters
+"   - ** Left-right alternating alignment around all delimiters
+"   - - Around the last occurrences of delimiters (-1)
+"   - -2 Around the second to last occurrence of delimiters
+" 3) Delimiter key (a single keystroke: <space>, =, ;, ., |, &, , or <c-x>)
+"   - Regex delimiter: use <c-x> to type a regular expression
+" 4) Optional: Enter keys to select alignment mode (left, right, or center)
+" 5) Optional: Addition alignment options
+"   - <c-f>   | Filter         | Input string ([gv]/.*/?)
+"   - <c-l>   | left_margin    | Input number or string
+"   - <c-r>   | right_margin   | Input number or string
+"   - <left>  | stick_to_left  | true or false
+"   - <right> | stick_to_right | true or false
+"   - <down>  | *_margin       | margin = 0
+" 6) Delimiter key (a single keystroke: <space>, =, ;, ., |, &, , or <c-x>)
+
 silent! so ~/.vim/bundles.vim
 silent! so ~/.vim/functions.vim
 set wildignore=*.db,*.doc,*.docx,*.~,*.exe,*.dll,*.dat*,*.png,*.jpg,*.jpeg,*.gif,*.DAT,*.DAT*,*.psd,*.lnk,*.mp4,*.pyc,Backup\**
@@ -25,7 +55,6 @@ else
     set shell=/bin/zsh
 endif
 
-" Can't live without these
 set number
 set relativenumber
 syntax on
@@ -38,13 +67,16 @@ else
     colorscheme molokai
 endif
 if !has("win32")
-    set t_Co=256
+    set t_Co=16
     silent! colorscheme desert
     silent! colorscheme ir_black
 endif
 
+"""""""""""
+" OPTIONS "
+"""""""""""
 let mapleader = "\<space>"
-set nocp               " enable vim features
+set backupdir=~/.vim/backups
 set noswapfile         " no swap files
 set autowrite          " autowrites on :next, etc.
 set ruler              " show rows,columns in status line
@@ -64,17 +96,16 @@ set smartcase
 set incsearch
 set splitbelow
 set splitright
-set to tm=3000 ttm=100
+set timeout timeoutlen=3000 ttimeoutlen=100
 set hlsearch
 set history=1000
 set linebreak
 set textwidth=0
-set nostartofline
-set backupdir=~/.vim/backups
-" set listchars=tab:→\   | set list
+set nostartofline " keep cursor in same column when using motions
 runtime! macros/matchit.vim
 highlight ColorColumn guibg=#293739
 set colorcolumn=81
+set synmaxcol=800
 
 " For use with `man`
 let $PAGER=''
@@ -84,65 +115,49 @@ set undofile
 set undodir=~/.vim/undo
 set undolevels=10000     " numbers of particular undos to save
 set undoreload=100000    " number of undo lines to save
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir))
+endif
 
-" Normal Mode Maps
-
-" Window movement
-nnoremap <up> <c-w>k
-nnoremap <down> <c-w>j
-nnoremap <right> <c-w>l
-nnoremap <left> <c-w>h
-nnoremap <c-right> <c-w>w
-
-" Move around lines better sometimes
-nnoremap <C-h> ^
-nnoremap <C-k> -
-nnoremap <C-j> <C-m>
-
-" mathssss
-" nnoremap Q 0yt=A<space><C-r>=<C-r>"<CR><Esc>vT=l"+y$
+"""""""""""
+" BUFFERS "
+"""""""""""
 
 " quit buffer
 nnoremap Q :bd<cr>
 " REALLY quit
 nnoremap RQ :bd!<cr>
 
-" Prevents character deletes from going into a register (_ is a blackhole)
-nnoremap x "_x
+" next/prev buffer
+nnoremap <Tab> :bn<CR>
+nnoremap <BS> :bp<CR>
 
-" Pastes system clipboard. Use <c-q> to enter visual block mode. You may have
-" to change terminal settings for it to work.
-nnoremap <c-v> "+P
+" Copy buffer to system clipboard
+nnoremap <c-c> :%y +<cr>
 
-" Adds a new line below/above current
-nnoremap <cr> o<esc>
-" FIXME
-nnoremap <s-cr> O<esc>
+" update buffer
+nnoremap S :up<cr>
+
+" Open Scratch buffer
+nnoremap <leader>tmp :Scratch<CR>
+
+" write and source current buffer
+nnoremap <leader>ss :w <bar> so %<cr>
+
+" Open buffer directory in explorer
+nnoremap <leader>oe :silent !explorer.exe %:p:h<cr>
 
 " Open buffer in chrome
 nnoremap gB :silent !chrome "%:p"<CR>
 
-" Start Tabular.vim
-" FIXME. Just detects a space in terminal
-noremap <S-Space> :Tab/
-
-" Start a vimgrep and open results window
-" FIXME in terminal
-nnoremap <C-space> :vim //g ** \| cw<home><right><right><right><right><right>
-nnoremap <C-S-space> :vim //g % \| cw<home><right><right><right><right><right>
-
-" Add a semicolon EOL.
-nnoremap a; m`A;<esc>``
-
-" Calls Tidy
-nnoremap <leader>x :silent %! tidy --vertical-space no --doctype omit --output-html yes --wrap 0 --show-errors 0 --show-body-only auto --indent auto --indent-spaces 4 -q -i<cr><cr>:silent! %s/<\/li>\zs\n\ze\s*\n\s*<li>//g<cr>
-
-" Togggle set wrap
-nnoremap <Leader>w :set wrap!<CR>
-
-" BundleClean/Install
-nnoremap <leader>bc :w <bar> so % <bar> BundleClean<CR>
-nnoremap <leader>bi :w <bar> so % <bar> BundleInstall<CR>
+" bufdo - does last command in all other buffers
+function! BufDoLastCommand()
+    undo
+    silent! bufdo @:
+endfunction
+command! -nargs=0 Bufdo :call BufDoLastCommand()
+" type BD to do a comment in all buffers
+cabbrev BD silent! bufdo
 
 " Edit/save/source vimrc
 if has("win32")
@@ -152,14 +167,21 @@ else
 endif
 nnoremap <Leader>sv :w <bar> so %<CR>:bdel<CR>
 
-" Buffer Maps
-nnoremap <Tab> :bn<CR>
-nnoremap <BS> :bp<CR>
+" BundleClean/Install
+nnoremap <leader>bc :w <bar> so % <bar> BundleClean<CR>
+nnoremap <leader>bi :w <bar> so % <bar> BundleInstall<CR>
 
-" FIXME in terminal
-nnoremap <silent> <C-Tab> :silent! Bclose<CR>
+"""""""""""
+" WINDOWS "
+"""""""""""
 
-" resize current buffer by +/- 5
+" Window movement
+nnoremap <up> <c-w>k
+nnoremap <down> <c-w>j
+nnoremap <right> <c-w>l
+nnoremap <left> <c-w>h
+
+" resize current window by +/- 5
 " FIXME These all broken in terminal. A darn shame.
 nnoremap <S-left> :vertical resize -5<cr>
 nnoremap <S-down> :resize +5<cr>
@@ -170,6 +192,29 @@ nnoremap <C-S-left> <c-w>l:vertical resize 40<CR><c-w>h
 nnoremap <C-S-up> :resize 30<CR>
 nnoremap <C-S-down> :resize<CR>
 
+""""""""""""
+" MOVEMENT "
+""""""""""""
+
+" Move around lines better sometimes
+nnoremap <C-h> ^
+nnoremap <C-k> -
+nnoremap <C-j> <C-m>
+
+"""""""""""
+" EDITING "
+"""""""""""
+
+" Pastes system clipboard. Use <c-q> to enter visual block mode. You may have
+" to change terminal settings for it to work.
+nnoremap <c-v> "+P
+
+" Prevents character deletes from going into a register (_ is a blackhole)
+nnoremap x "_x
+
+" Add a semicolon EOL.
+nnoremap a; m`A;<esc>``
+
 " Bubble single lines
 nnoremap <C-Up> ddkP
 nnoremap <C-Down> ddp
@@ -177,44 +222,42 @@ nnoremap <C-Down> ddp
 vnoremap <C-Up> xkP`[V`]
 vnoremap <C-Down> xp`[V`]
 
-" write and source current buffer
-nnoremap <leader>ss :w <bar> so %<cr>
+" Adds a new line below/above current
+nnoremap <cr> o<esc>
+" FIXME
+nnoremap <s-cr> O<esc>
 
-" Quick search and replace
-nnoremap ? :%s/<c-r>///g<left><left>
-vnoremap ? :s/<c-r>///g<left><left>
+" split line
+nnoremap K i<cr><esc>
 
-" Changes windows to the directory of the current buffer
-nnoremap cd :lcd %:p:h<CR>:cd<CR>
+" Spell check
+nnoremap <leader>sc ea<c-x><c-s><esc>
 
-" Add a class/id to the first HTML tag on the line
-nnoremap <leader>ac :silent! s/<\zs\w\+/& class=""/<CR>ci"
-nnoremap <leader>ai :silent! s/<\zs\w\+/& id=""/<CR>ci"
-nnoremap <leader>aa :silent! s/\vimg.{-}\zs\ze\>/ alt=""/g<CR>ci"
+" Isolate line
+nnoremap <leader><space><space> ddO<cr><esc>P
+" Isolate Visual selection
+vnoremap <leader><space><space> dO<cr><esc>P
 
-" Open Scratch buffer
-nnoremap <leader>tmp :Scratch<CR>
+" zip a thing over to the end of line
+nnoremap zl :let @z=@"<cr>x$p:let @"=@z<cr>
 
-" Diff THIS
-nnoremap <leader>dt :difft<CR>
-nnoremap <leader>ds :vert diffsplit<CR>
-nnoremap <leader>do :diffo!<CR>
+""""""""""""""
+" FORMATTING "
+""""""""""""""
+
+" EasyAlign
+nmap <leader>a <Plug>(LiveEasyAlign)
+vmap <cr> <Plug>(LiveEasyAlign)
+
+" Start Tabular.vim
+" FIXME. Just detects a space in terminal
+noremap <S-Space> :Tab/
+
+" Calls Tidy
+nnoremap <leader>x :silent %! tidy --vertical-space no --doctype omit --output-html yes --wrap 0 --show-errors 0 --show-body-only auto --indent auto --indent-spaces 4 -q -i<cr><cr>:silent! %s/<\/li>\zs\n\ze\s*\n\s*<li>//g<cr>
 
 " Run Last :Tabularize
 nnoremap <leader>lt :Tab<up><CR>
-
-" TRACKING MAPS
-" Fix tracking number csv files for work
-nnoremap <leader>tq :%s/"//g<cr>
-nnoremap <leader>tt :Tab/,\zs<cr>
-
-nnoremap <leader>ti :call CleanUp()<cr>
-nnoremap <leader>tc :s/\v^.{-},\zs.{-}\ze,//g<cr>
-nnoremap <leader>td :%s/\v((10\d{4}).*)\n.*(\2)/\1/<cr>
-
-nnoremap <leader>ts :sor n /,/<cr>
-nnoremap <leader>tp :%s/,\s\+/,/g<cr>
-" END TRACKING MAPS
 
 " Beautifiers
 nnoremap <leader>jx :call JsBeautify()<cr>
@@ -224,25 +267,59 @@ vnoremap <leader>jx :call JsBeautify("'<","'>")<cr>
 vnoremap <leader>hx :call HtmlBeautify("'<","'>")<cr>
 vnoremap <leader>cx :call CSSBeautify("'<","'>")<cr>
 
-" Copy buffer to system clipboard
-nnoremap <c-c> :%y +<cr>
+"""""""""""""
+" SEARCHING "
+"""""""""""""
 
-" split line
-nnoremap K i<cr><esc>
+" Quick search and replace
+nnoremap ? :%s/<c-r>///g<left><left>
+vnoremap ? :s/<c-r>///g<left><left>
 
-" update buffer
-nnoremap S :up<cr>
+" Start a vimgrep and open results window
+" FIXME in terminal
+nnoremap <C-space> :vim //g ** \| cw<home><right><right><right><right><right>
+nnoremap <C-S-space> :cex [] \| bufdo vimgrepadd //g % \| cw<left><left><left><left><left><left><left><left><left>
 
-" Align C comments
-nnoremap <leader>a/ :Tab/^[^\/]*\zs\//l1l0<cr>
+" centers search
+nnoremap n nzz
+nnoremap N Nzz
+
+" clear search highlights
+nnoremap <c-l> :nohl<cr><c-l>
+
+""""""""""""""""""""
+" COMPILING/MAKING "
+""""""""""""""""""""
 
 " make and run
 nnoremap <leader>ma :update<cr>:Make %:r<cr>
 " for D
 nnoremap <leader>md :up \| silent! !dmd %<cr>:copen<cr><c-w>w:!%:r
 
-" Spell check
-nnoremap \s ea<C-X><C-S>
+"""""""""""
+" UTILITY "
+"""""""""""
+
+" Togggle set wrap
+nnoremap <Leader>w :set wrap!<CR>
+
+" Changes windows to the directory of the current buffer
+nnoremap cd :lcd %:p:h<CR>:cd<CR>
+
+" Diff THIS
+nnoremap <leader>dt :difft<CR>
+nnoremap <leader>ds :vert diffsplit<CR>
+nnoremap <leader>do :diffo!<CR>
+
+" TRACKING MAPS
+" Fix tracking number csv files for work
+nnoremap <leader>tq :%s/"//g<cr>
+nnoremap <leader>tt :Tab/,\zs<cr>
+nnoremap <leader>ti :call CleanUp()<cr>
+nnoremap <leader>td :%s/\v((10\d{4}).*)\n.*(\2)/\1/<cr>
+nnoremap <leader>ts :sor n /,/<cr>
+nnoremap <leader>tp :%s/,\s\+/,/g<cr>
+" END TRACKING MAPS
 
 " Sum first numbers
 nnoremap <leader>sf :silent! %s/\d\+/\=Sum(submatch(0))/g<cr>:echo g:S<cr>
@@ -260,24 +337,18 @@ nnoremap <leader>d= :DoMathsVerbose<cr>
 " Run ctags
 nnoremap <leader>ct :silent !ctags -R<cr>
 
-" Isolate line
-nnoremap <leader><space><space> ddO<cr><esc>P
+" Copy visual selection to system clipboard. Use v, V, or <c-q> to exit visual
+" mode without copying.
+vnoremap <c-c> "+y
 
-" Open buffer directory in explorer
-nnoremap <leader>oe :silent !explorer.exe %:p:h<cr>
+" Fix syntax
+nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 
-" open snippets
-nnoremap <leader>ne :vsp \| NeoSnippetEdit<cr>
+""""""""
+" MISC "
+""""""""
 
-" bdelete
-nnoremap <leader>bd :bd!<cr>
-
-" HLNext
-highlight WhiteOnRed guibg=Red guifg=White
-nnoremap <silent> n n:call HLNext(0.1)<cr>
-nnoremap <silent> N N:call HLNext(0.1)<cr>
-
-" Fix the dumbest mapping in Vim
+" Fix Y
 nnoremap Y y$
 
 " move backward a jump
@@ -286,10 +357,29 @@ nnoremap _ <c-o>
 " move forward a jump
 nnoremap + <c-i>
 
-" clear search highlights
-nnoremap <c-l> :nohl<cr><c-l>
+"""""""""""""""
+" PLUGIN MAPS "
+"""""""""""""""
 
-""" Insert Mode Maps
+" open snippets
+nnoremap <leader>ne :vsp \| NeoSnippetEdit<cr>
+
+" Fugitive commands
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gp :Git push<CR>
+nnoremap <leader>gb :Gbrowse<CR>
+
+" Surround.vim maps
+" wrap <ul> tag around visual selection
+nnoremap <leader>rul :normal ysii<ul>vit><lt><lt><cr>
+" wrap <li> tag on each line in visual selection
+vnoremap <leader>rli :normal yss<li><cr>
+
+""""""""""""""""""""
+" INSERT MODE MAPS "
+""""""""""""""""""""
 
 " More undo points
 inoremap . .<C-g>u
@@ -327,18 +417,10 @@ inoremap <silent> <C-X><cr> <esc>ciW<lt><c-r>"><cr></<c-r>"><esc>O<tab>
 " Do maths
 inoremap <c-e> <esc>:DoMathsVerbose<cr>A
 
-""" Visual Mode Maps
-" Isolate Visual selection
-vnoremap <leader><space><space> dO<cr><esc>P
+"""""""""""""""""""""
+" Command Mode maps "
+"""""""""""""""""""""
 
-" Copy visual selection to system clipboard. Use v, V, or <c-q> to exit visual
-" mode without copying.
-vnoremap <c-c> "+y
-
-" Easyalaign
-vnoremap <cr> :LiveEasyAlign<cr>
-
-""" Command Mode maps
 " Heresy.
 cnoremap <C-a> <home>
 cnoremap <C-e> <end>
@@ -353,20 +435,23 @@ cnoremap <m-b> <c-left>
 cnoremap w!! %!sudo tee > /dev/null %
 
 " Command abbrevs
-ca Set set
-ca W w
-ca Q q
-ca Qa qa
-ca Wq wq
-ca Wqa wqa
-ca Read read
-ca R r
-ca q1 q!
-ca %S %s
-ca Cd cd
-ca E e
+cabbrev Set set
+cabbrev W w
+cabbrev Q q
+cabbrev Qa qa
+cabbrev Wq wq
+cabbrev Wqa wqa
+cabbrev Read read
+cabbrev R r
+cabbrev q1 q!
+cabbrev %S %s
+cabbrev Cd cd
+cabbrev E e
 
-" Commands
+
+""""""""""""
+" Commands "
+""""""""""""
 
 " does maths
 command! DoMaths
@@ -378,15 +463,31 @@ command! DoMathsVerbose
             \ exec '.!bc' |
             \ exec 'norm <c-l>I<c-r>0 = <esc>kJ$vB"+y0'
 
-" Plugin Maps and Options
-" sneak
-nnoremap f :Sneak!         1<cr>
-nnoremap F :SneakBackward! 1<cr>
-xnoremap f <esc>:<c-u>SneakV!         1<cr>
-xnoremap F <esc>:<c-u>SneakVBackward! 1<cr>
-" colorizer
+"""""""""""""""""""""""""""
+" PLUGIN MAPS AND OPTIONS "
+"""""""""""""""""""""""""""
+
+" vim-sneak
+" replace 'f' with inclusive 1-char Sneak
+let g:sneak#streak = 1
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+" replace 't' with exclusive 1-char Sneak
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
+
+" Colorizer
 let g:colorizer_auto_filetype='css,html,javascript'
-" auto pairs
+
+" auto-pairs
 let g:AutoPairs = {'(':')', '[':']', '{':'}', "'":"'", '"':'"', '`':'`',  '|':'|'}
 
 " Neocomplete
@@ -431,28 +532,10 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd Filetype html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-
-" multicursors
-let g:multi_cursor_next_key='<c-n>'
-let g:multi_cursor_prev_key='<c-p>'
-let g:multi_cursor_skip_key='<c-x>'
-let g:multi_cursor_quit_key='<c-q>'
-
-" extended-ft
-let g:ExtendedFT_caseOption = '\C'
-
 " Airline
 let g:airline_powerline_fonts = 1
-
 " Bufferline
 let g:bufferline_echo = 0
-
-" easytags
-let g:easytags_auto_highlight = 0
-let g:easytags_autorecurse = 1
 
 " TextObjColumn remaps. The default's conflict with comment objects
 let g:skip_default_textobj_word_column_mappings = 1
@@ -473,24 +556,9 @@ sunmap w
 sunmap b
 sunmap e
 
-" DelimitMate
-let delimitMate_expand_cr = 1
-let delimitMate_expand_space = 1
-
-" Crunch
-" nnoremap <leader>cl :CrunchLine<cr>
-" xnoremap <leader>cl :CrunchLine<cr>
-" nnoremap <leader>cb :CrunchBlock<cr>
-" xnoremap <leader>cb :CrunchBlock<cr>
-
 " NERDCommenter options
 let g:NERDUsePlaceHolders = 0
 let g:NERDSpaceDelims = 1
-
-" Ultisnips maps and options
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Ctrlp Options
 let g:ctrlp_mruf_excluse = '*.csv'
@@ -500,38 +568,12 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_custom_ignore = '*.dat'
 let g:ctrlp_extensions = ['tag', 'line']
 
-" SuperTab Options
-let g:SuperTabDefaultCompletionType = "context"
-
-" Fugitive commands
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gp :Git push<CR>
-nnoremap <leader>gb :Gbrowse<CR>
-
-" Surround.vim maps
-" wrap <ul> tag around visual selection
-nnoremap <leader>rul :normal ysii<ul>vit><lt><lt><cr>
-" wrap <li> tag on each line in visual selection
-vnoremap <leader>rli :normal yss<li><cr>
-" wrap div class
-vnoremap <leader>rd S<lt>div class=""<left>
-
-" Syntastic
-let g:syntastic_python_checkers = ['pyflakes']
-let g:syntastic_mode_map = { 'mode': 'passive' }
-
-" autocmds
-augroup PROSE
-    autocmd BufRead,BufNewFile *.md set ft=markdown
-augroup END
-
-augroup bufenters
-    au!
-    autocmd BufEnter * syntax sync fromstart
 augroup fts
-    au!
+    autocmd BufRead,BufNewFile *.md set ft=markdown
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd Filetype html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType qf setlocal colorcolumn=0 nolist nocursorline nowrap tw=0
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd BufRead,BufNewFile *.config set ft=xml
     autocmd BufRead,BufNewFile *.master set ft=html
     autocmd BufRead,BufNewFile *.ascx set ft=html
@@ -567,7 +609,6 @@ augroup END
 
 " Highlight trailing whitespace
 match TrailingWhitespace /\S\zs\s\+$/
-
 function! DelTrailWhitesp()
     if search('\s\+$', 'np')
         silent! %s/\s\+$//e | silent! norm ``zz
