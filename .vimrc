@@ -223,9 +223,9 @@ vnoremap <C-Up> xkP`[V`]
 vnoremap <C-Down> xp`[V`]
 
 " Adds a new line below/above current
-nnoremap <cr> o<esc>
+" nnoremap <cr> o<esc>
 " FIXME
-nnoremap <s-cr> O<esc>
+" nnoremap <s-cr> O<esc>
 
 " split line
 nnoremap K i<cr><esc>
@@ -278,7 +278,7 @@ vnoremap ? :s/<c-r>///g<left><left>
 " Start a vimgrep and open results window
 " FIXME in terminal
 nnoremap <C-space> :vim //g ** \| cw<home><right><right><right><right><right>
-nnoremap <C-S-space> :cex [] \| bufdo vimgrepadd //g % \| cw<left><left><left><left><left><left><left><left><left>
+nnoremap <C-S-space> :cex [] \| bufdo silent! noau vimgrepadd //g % \| cw<left><left><left><left><left><left><left><left><left>
 
 " centers search
 nnoremap n nzz
@@ -310,16 +310,6 @@ nnoremap cd :lcd %:p:h<CR>:cd<CR>
 nnoremap <leader>dt :difft<CR>
 nnoremap <leader>ds :vert diffsplit<CR>
 nnoremap <leader>do :diffo!<CR>
-
-" TRACKING MAPS
-" Fix tracking number csv files for work
-nnoremap <leader>tq :%s/"//g<cr>
-nnoremap <leader>tt :Tab/,\zs<cr>
-nnoremap <leader>ti :call CleanUp()<cr>
-nnoremap <leader>td :%s/\v((10\d{4}).*)\n.*(\2)/\1/<cr>
-nnoremap <leader>ts :sor n /,/<cr>
-nnoremap <leader>tp :%s/,\s\+/,/g<cr>
-" END TRACKING MAPS
 
 " Sum first numbers
 nnoremap <leader>sf :silent! %s/\d\+/\=Sum(submatch(0))/g<cr>:echo g:S<cr>
@@ -518,19 +508,26 @@ endfunction
 inoremap <expr><c-h> neocomplete#smart_close_popup() . "\<c-h>"
 inoremap <expr><bs> neocomplete#smart_close_popup() . "\<c-h>"
 inoremap <expr><space> neocomplete#smart_close_popup()
+
 " NeoSnippets
-let neosnippet#snippets_directory = '~/.vim/bundle/neosnippet.vim/autoload/neosnippet/snippets'
+" let neosnippet#snippets_directory = '~/.vim/bundle/neosnippet.vim/autoload/neosnippet/snippets'
 " SuperTab like snippets behavior.
-imap <expr><tab> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\ : pumvisible() ? "\<c-n>" : "\<tab>"
-smap <expr><tab> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\ : pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <s-tab> <c-p>
-if has('conceal')
-    set conceallevel=2 concealcursor=i
-endif
+" imap <expr><tab> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \ : pumvisible() ? "\<c-n>" : "\<tab>"
+" smap <expr><tab> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \ : pumvisible() ? "\<c-n>" : "\<tab>"
+" inoremap <s-tab> <c-p>
+" if has('conceal')
+    " set conceallevel=2 concealcursor=i
+" endif
+let g:ulti_expand_or_jump_res = 0
+function! Ulti_ExpandOrJump_and_getRes()
+    call UltiSnips#ExpandSnippetOrJump()
+    return g:ulti_expand_or_jump_res
+endfunction
+imap <tab> <c-r>=(Ulti_ExpandOrJump_and_getRes() > 0) ? "" : SuperTab('n')<cr>
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -574,6 +571,7 @@ augroup fts
     autocmd Filetype html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType qf setlocal colorcolumn=0 nolist nocursorline nowrap tw=0
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd BufRead,BufNewFile *.csv setlocal ft=csv
     autocmd BufRead,BufNewFile *.config set ft=xml
     autocmd BufRead,BufNewFile *.master set ft=html
     autocmd BufRead,BufNewFile *.ascx set ft=html

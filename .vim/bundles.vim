@@ -16,7 +16,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'kshenoy/vim-signature'
 Bundle 'mileszs/ack.vim'
 Bundle 'Shougo/neocomplete.vim'
-Bundle 'Shougo/neosnippet.vim'
+" Bundle 'Shougo/neosnippet.vim'
 Bundle 'jiangmiao/auto-pairs'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'godlygeek/tabular'
@@ -24,6 +24,12 @@ Bundle 'marijnh/tern_for_vim'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'tpope/vim-dispatch'
 Bundle 'justinmk/vim-sneak'
+
+Bundle 'ervandew/supertab'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
+
+Bundle 'aaronbieber/vim-quicktask'
 
 " Markdown
 Bundle 'tpope/vim-markdown'
