@@ -222,11 +222,6 @@ nnoremap <C-Down> ddp
 vnoremap <C-Up> xkP`[V`]
 vnoremap <C-Down> xp`[V`]
 
-" Adds a new line below/above current
-" nnoremap <cr> o<esc>
-" FIXME
-" nnoremap <s-cr> O<esc>
-
 " split line
 nnoremap K i<cr><esc>
 
